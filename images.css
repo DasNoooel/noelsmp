@@ -1,0 +1,22 @@
+img {
+    display: block;
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.commands-button {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    left: 500px;
+    top: 700px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+

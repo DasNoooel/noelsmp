@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .top-nav {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(15px, 4vw, 50px);
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .top-nav .logo-link {
+        display: block;
+        flex-shrink: 1;
+    }
+
+    .top-nav .logo {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+
+        display: block;
+        width: clamp(60px, 8vw, 100px) !important;
+        height: auto;
+        max-width: 100%;
+    }
+
+    .top-nav .rules-link,
+    .top-nav .ranks-link {
+        font-family: "Press Start 2P", monospace;
+        font-size: clamp(9px, 1.5vw, 18px);
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .top-nav .rules-link {
+        color: brown;
+    }
+
+    .top-nav .ranks-link {
+        color: darkcyan;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoelSMP ● Command List </title>
+    <link rel="stylesheet" href="commands_background.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+   <style>
+        *{
+            font-family: "Press Start 2P", monospace;
+            font-size: small;
+        }
+    </style>
+
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    <div class="top-nav">
+
+    <a href="rules.html" class="rules-link">
+        RULES
+    </a>
+
+    <a href="index.html"logo-link">
+        <img src="NoelSMPL.png" class="logo" alt="NoelSMP">
+    </a>
+
+    <a href="ranks.html" class="ranks-link">
+        RANKS
+    </a>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div style="text-align: center;">
+    <h1>LISTE ALLER COMMANDS</h1>
+
+    <p>Hier ist eine Liste von allen Commands die man als Spieler benutzt kann:</p>
+
+    <p style="color:magenta;font-weight: bold;">
+        *Commands die PINK sind, können nur von Premium, VIP und Team Rängen benutzt werden!
+    </p>
+</div>
+<br>
+<p style="font-weight: bold;">KATEGORIEN</p>
+<br>
+<details><summary style="color: dodgerblue; font-weight: bold;">SERVER</summary>
+    <p>Dies sind alle allgemeinen Servercommands:</p>
+    <p> /spawn | Teleportiert dich an den Spawn</p>
+    <p> /rtp | Teleportiert dich zu einer zufälligen Koordinate in einer auserwählten Dimension</p>
+    <p> /tpa | Schickt eine Teleportationsanfrage an einen Spieler</p>
+    <p> /tpahere | Schickt eine Teleportationsanfrage zu einem Spieler, ob er sich zu dich teleportieren will</p>
+    <p style="color: magenta;"> /tpauto | Teleportiert automatisch jeden Spieler zu dir, der dir eine TPA sendet</p>
+    <p> /settings | Öffnet deine Einstellungen</p>
+    <p style="color: magenta;"> /craft | Öffnet ein mobiles Craftingtable Menü</p>
+    <p style="color: magenta;"> /ec | Öffnet deine mobile Enderchest</p>
+    <p style="color: magenta;"> /trash | Öffnet ein Mülleimer-Menü, wo du Sachen reinpacken kannst die du nicht brauchst (! Weggeworfene Items können nicht wieder hergestellt werden)</p>
+    <p> /homes | Öffnet ein Home-Menü, wo du alle deine Homes siehst</p>
+    <p> /sethome | Setzte ein Home auf der Koordinate auf der du gerade stehst</p>
+    <p> /delhome | Löscht ein auserwähltes Home</p>
+    <p style="color: magenta;"> /home share | Teilt dein Home mit einem Freund, dieser kann dann sich dahin teleportieren wann immer er will (! Geteilte Homes können von dem Freund NICHT weitergeteilt werden) </p>
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+</details>
+<hr style="width: 25%; margin-left: 0; margin-right: auto; border: none; border-top: 3px solid black;">
+<details><summary style="color: goldenrod; font-weight: bold;">ECONOMY</summary>
+    <p>Dies sind alle Commands die etwas mit dem Geldsystem zu tun haben:</p>
+    <p> /pay | Bezahle eine benutzerdefinierte Summe an Geld an einen auserwählten Spieler</p>
+    <p> /shop | Öffnet den Item-Shop, wo man unter anderem Essen, Ressourcen und PVP-Items kaufen kann</p>
+    <p> /sell | Öffnet ein Menü, wo du Blöcke und Items verkaufen kannst</p>
+    <p> /ah | Öffnet das Auktionshaus, wo du Sachen von anderen kaufen oder du deine eigenen Sachen zum benutzerdefinierten Preis verkaufen kannst</p>
+</details>
+<hr style="width: 25%; margin-left: 0; margin-right: auto; border: none; border-top: 3px solid black;">
+<details><summary style="color: green; font-weight: bold;">SOZIAL</summary>
+    <p>Dies sind alle Commands die etwas mit dem sozialen Netzwerk zu tun haben:</p>
+    <details><summary style="color: cornflowerblue;">FREUNDE</summary>
+        <p> /friend add | Sendet eine Freundschaftsanfrage an eine auserwählte Person</p>
+        <p> /friend remove | Entfernt einen Freund aus der Freundesliste</p>
+        <p> /friend list | Zeigt dir deine Freundesliste</p>
+        <p> /friend mute | Schaltet die Textnachrichten eines Freundes stumm</p>
+    </details>
+ <br>
+    <details><summary style="color: cornflowerblue;">CLAN</summary>
+        <p> /clan create | Erstellt einen Clan</p>
+        <p> /clan delete | Löscht deinen Clan</p>
+        <p> /clan settings | Öffnet die Einstellungen deines Clans</p>
+        <p> /clan invite | Läd eine auserwählte Person in deinen Clan ein</p>
+        <p> /clan kick | Kickt eine Person aus dem Clan</p>
+        <p> /clan ban | Bannt eine Person aus dem Clan</p>
+    </details>
+</details>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h4 style="color: red;">
+        WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
+        <br>
+        bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
+    </h4>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h5>Official NoelSMP Website | coded by dasnoooel</h5>
+</body>
+</html>
