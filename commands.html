@@ -59,6 +59,24 @@
             font-family: "Press Start 2P", monospace;
             font-size: small;
         }
+
+        html, body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 25px 10px;
+    font-size: 12px;
+}
     </style>
 
 </head>
@@ -89,7 +107,7 @@
     <p>Hier ist eine Liste von allen Commands die man als Spieler benutzt kann:</p>
 
     <p style="color:magenta;font-weight: bold;">
-        *Commands die PINK sind, können nur von SUBS, MEDIAS, VIPS und Team Rängen benutzt werden!
+        *Commands die PINK sind, können nur von BOOSTER, MEDIAS, VIPS und Team Rängen benutzt werden!
     </p>
 </div>
 <hr>
@@ -105,25 +123,14 @@
     <p style="color: magenta;"> /tpauto | Teleportiert automatisch jeden Spieler zu dir, der dir eine TPA sendet</p>
     <p> /settings | Öffnet deine Einstellungen</p>
     <p style="color: magenta;"> /craft | Öffnet ein mobiles Craftingtable Menü</p>
-    <p style="color: magenta;"> /ec | Öffnet deine mobile Enderchest</p>
+    <p style="color: magenta;"> /enderchest | Öffnet deine mobile Enderchest</p>
     <p style="color: magenta;"> /trash | Öffnet ein Mülleimer-Menü, wo du Sachen reinpacken kannst die du nicht brauchst (! Weggeworfene Items können nicht wieder hergestellt werden)</p>
+    <p style="color: magenta;"> /anvil | Öffnet ein mobiles Anvil-Menü</p>
+    <p style="color: magenta;"> /loom | Öffnet ein mobiles Loom-Menü</p>
+    <p style="color: magenta;"> /stonecutter | Öffnet ein mobiles Stonecutter-Menü</p>
     <p> /homes | Öffnet ein Home-Menü, wo du alle deine Homes siehst</p>
     <p> /sethome | Setzte ein Home auf der Koordinate auf der du gerade stehst</p>
-    <p> /delhome | Löscht ein auserwähltes Home</p>
-    <p style="color: magenta;"> /home share | Teilt dein Home mit einem Freund, dieser kann dann sich dahin teleportieren wann immer er will (! Geteilte Homes können von dem Freund NICHT weitergeteilt werden) </p>
-    
-
-
-
-    
-
-
-
-
-
-
-
-
+    <p> /delhome | Löscht ein auserwähltes Home</p> </p>
 </details>
 <hr style="width: 25%; margin-left: 0; margin-right: auto; border: none; border-top: 3px solid black;">
 <details><summary style="color: goldenrod; font-weight: bold;">ECONOMY</summary>
@@ -144,37 +151,97 @@
     </details>
  <br>
     <details><summary style="color: cornflowerblue;">CLAN</summary>
-        <p> /clan create | Erstellt einen Clan</p>
-        <p> /clan delete | Löscht deinen Clan</p>
-        <p> /clan settings | Öffnet die Einstellungen deines Clans</p>
-        <p> /clan invite | Läd eine auserwählte Person in deinen Clan ein</p>
-        <p> /clan kick | Kickt eine Person aus dem Clan</p>
-        <p> /clan ban | Bannt eine Person aus dem Clan</p>
+        <details>
+        <summary>Clan-Verwaltung</summary>
+
+        <p><code>/clan</code> | Öffnet das Haupt-Clan-Menü</p>
+        <p><code>/clan create &lt;Name&gt;</code> | Erstellt einen Clan</p>
+        <p><code>/clan invite &lt;Spieler&gt;</code> | Lädt einen Spieler in den Clan ein</p>
+        <p><code>/clan join</code> | Nimmt eine Clan-Einladung an</p>
+        <p><code>/clan deny</code> | Lehnt eine Clan-Einladung ab</p>
+        <p><code>/clan kick &lt;Spieler&gt;</code> | Entfernt einen Spieler aus dem Clan</p>
+        <p><code>/clan promote &lt;Spieler&gt;</code> | Befördert ein Clan-Mitglied</p>
+        <p><code>/clan demote &lt;Spieler&gt;</code> | Stuft ein Clan-Mitglied herab</p>
+        <p><code>/clan transfer &lt;Spieler&gt;</code> | Überträgt die Clan-Leitung</p>
+        <p><code>/clan leave</code> | Verlässt den Clan</p>
+        <p><code>/clan disband</code> | Löst den Clan auf</p>
+
+    </details>
+
+
+    <details>
+        <summary>Clan-Informationen &amp; Statistiken</summary>
+
+        <p><code>/clan info [Clan]</code> | Zeigt Informationen über einen Clan</p>
+        <p><code>/clan stats</code> | Zeigt detaillierte Clan-Statistiken</p>
+        <p><code>/clan top</code> | Zeigt die Clan-Rangliste</p>
+        <p><code>/clan wartop</code> | Zeigt die Kriegs-Rangliste</p>
+        <p><code>/clan list</code> | Zeigt alle Clans</p>
+
+    </details>
+
+
+    <details>
+        <summary>Clan-Kriege &amp; Diplomatie</summary>
+
+        <p><code>/clan war &lt;Clan&gt;</code> | Erklärt einem Clan den Krieg</p>
+        <p><code>/clan peace &lt;Clan&gt;</code> | Beendet einen Krieg</p>
+        <p><code>/clan ally &lt;...&gt; &lt;Clan&gt;</code> | Verwaltet Bündnisse mit anderen Clans</p>
+        <p><code>/clan enemy &lt;...&gt;</code> | Verwaltet feindliche Clans</p>
+
+    </details>
+
+
+    <details>
+        <summary>Clan-Anpassungen</summary>
+
+        <p><code>/clan prefix &lt;Text&gt;</code> | Setzt einen farbigen Clan-Präfix</p>
+        <p><code>/clan emoji [gui]</code> | Öffnet das Emoji-Menü bzw. legt ein Clan-Emoji fest</p>
+        <p><code>/clan motd &lt;Text&gt;</code> | Legt die Clan-Nachricht des Tages fest</p>
+
+    </details>
+
+
+    <details>
+        <summary>Clan-Heimat</summary>
+
+        <p><code>/clan sethome</code> | Setzt den Clan-Homepunkt</p>
+        <p><code>/clan home</code> | Teleportiert zum Clan-Home</p>
+
+    </details>
+
+
+    <details>
+        <summary>Clan-Bank &amp; Punkte</summary>
+
+        <p><code>/clan bank</code> | Öffnet die Clan-Bank</p>
+        <p><code>/clan deposit</code> | Zahlt Geld in die Clan-Bank ein</p>
+        <p><code>/clan withdraw</code> | Hebt Geld aus der Clan-Bank ab</p>
+
+    </details>
+
+
+    <details>
+        <summary>Clan-Kommunikation</summary>
+
+        <p><code>/clanchat</code> | Schreibt im Clan-Chat</p>
+        <p><code>/allychat</code> | Schreibt im Bündnis-Chat</p>
+        <p><code>/clanchatspy</code> | Ermöglicht das Mitlesen des Clan-Chats</p>
+        <p><code>/clanchest</code> | Öffnet die Clan-Truhe</p>
+
     </details>
 </details>
-<br>
-<br>
-<br>
-<br>
-<br>
-<h4 style="color: red;">
+</details>
+
+
+ <footer>
+    <h4 style="color: red;">
         WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
         <br>
         bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
     </h4>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<h5>Official NoelSMP Website | coded by dasnoooel</h5>
+        developed by dasnoooel <br>
+    © 2026 NoelSMP. All Rights Reserved.
+ </footer>
 </body>
 </html>
