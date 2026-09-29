@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NoelSMP – Neuigkeiten</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="news.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="NoelSMPLM.png">
+<link rel="stylesheet" href="background.css">
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Press Start 2P", monospace;
+        color: #eeeeee;
+    }
+
+    main {
+        width: 100%;
+        max-width: 1150px;
+        margin: 0 auto;
+        padding: 25px 20px 50px;
+    }
+
+    .top-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(20px, 5vw, 55px);
+        margin-bottom: 25px;
+        padding: 18px;
+        border-radius: 20px;
+        background: rgba(10, 20, 40, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+    }
+
+    .top-nav a {
+        text-decoration: none;
+        font-size: clamp(8px, 1.2vw, 11px);
+        transition: 0.2s ease;
+    }
+
+    .top-nav a:hover {
+        transform: translateY(-3px);
+    }
+
+    .nav-commands {
+        color: #b28cff;
+    }
+
+    .nav-rules {
+        color: #d69a6a;
+    }
+
+    .nav-ranks {
+        color: #58d0c5;
+    }
+
+    .nav-logo {
+        width: clamp(70px, 9vw, 105px);
+        height: auto;
+        transition: 0.25s ease;
+    }
+
+    .nav-logo:hover {
+        transform: scale(1.05);
+    }
+
+    .news-page {
+        padding: 30px;
+        border-radius: 24px;
+        background: rgba(10, 20, 40, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .section-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #63b5ff;
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .section-header h1 {
+        margin: 0;
+        color: #ffffff;
+        font-size: 25px;
+    }
+
+    .all-news-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 10px 16px;
+        border-radius: 12px;
+        color: #63b5ff;
+        background: rgba(99, 181, 255, 0.08);
+        border: 1px solid rgba(99, 181, 255, 0.25);
+        text-decoration: none;
+        font-family: "Press Start 2P", monospace;
+        font-size: 8px;
+        transition: 0.2s ease;
+    }
+
+    .all-news-button:hover {
+        color: #ffffff;
+        background: rgba(99, 181, 255, 0.16);
+        border-color: rgba(99, 181, 255, 0.55);
+        transform: translateY(-3px);
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .news-card {
+        position: relative;
+        min-height: 190px;
+        padding: 25px;
+        padding-top: 48px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        transition: 0.25s ease;
+    }
+
+    .news-card:hover {
+        transform: translateY(-6px);
+        background: rgba(255, 255, 255, 0.075);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .news-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 3px;
+        background: #63b5ff;
+    }
+
+    .news-card:nth-child(2)::before {
+        background: #a978ff;
+    }
+
+    .news-card:nth-child(3)::before {
+        background: #ffd35c;
+    }
+
+    .news-card:nth-child(4)::before {
+        background: #55d6b0;
+    }
+
+    .news-date {
+        position: absolute;
+        top: 16px;
+        right: 18px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 7px;
+        white-space: nowrap;
+    }
+
+    .news-card p {
+        margin: 0;
+        color: #eeeeee;
+        font-size: 10px;
+        line-height: 2;
+    }
+
+    footer {
+        margin-top: 30px;
+        padding: 25px 10px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 7px;
+        line-height: 2;
+    }
+
+    @media (max-width: 800px) {
+
+        .news-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+    @media (max-width: 600px) {
+
+        main {
+            padding: 12px 10px 30px;
+        }
+
+        .top-nav {
+            gap: 15px;
+            padding: 15px 10px;
+        }
+
+        .top-nav a {
+            font-size: 7px;
+        }
+
+        .nav-logo {
+            width: 65px;
+        }
+
+        .news-page {
+            padding: 20px;
+            border-radius: 19px;
+        }
+
+        .section-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .section-header h1 {
+            font-size: 19px;
+        }
+
+        .all-news-button {
+            width: 100%;
+        }
+
+        .news-card {
+            padding: 22px;
+            padding-top: 48px;
+        }
+
+        .news-card p {
+            font-size: 8px;
+            line-height: 2.1;
+        }
+
+        .news-date {
+            font-size: 6px;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<main>
+
+    <nav class="top-nav">
+
+        <a href="/rules/" class="nav-commands">
+            COMMANDS
+        </a>
+
+        <a href="/rules/" class="nav-rules">
+            RULES
+        </a>
+
+        <a href="/ranks/" class="nav-ranks">
+            RANKS
+        </a>
+
+    </nav>
+
+    <section class="news-page">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-label">
+                    NOELSMP
+                </span>
+
+                <h1>
+                    NEWS
+                </h1>
+
+            </div>
+
+            <a href="index.html" class="all-news-button">
+                ← STARTSEITE
+            </a>
+
+        </div>
+
+        <div class="news-grid">
+
+            <article class="news-card">
+
+                <span class="news-date">
+                    28. SEPTEMBER 2026
+                </span>
+
+                <p>
+                    NEUES Shop UND Sell Update: Benutzt nun /shop um den Shop zuöffnen und benutzt /sellgui um das Sell-Menü zu öffnen. Wir haben die Plugins gewechselt da man auf dem vorherigen nur wenige Items verkaufen konnte, aber generell sind die Commands gleich geblieben!
+                </p>
+
+            </article>
+
+            <article class="news-card">
+
+                <span class="news-date">
+                    28. SEPTEMBER 2026
+                </span>
+
+                <p>
+                    NEUES Home-Plugin! Ab heute benutzen wir BHomes für das Home-Plugin, auch wenn das Plugin nicht 100% perfekt ist suchen wir weiterhin nach einem besseren!
+                </p>
+
+            </article>
+
+            <article class="news-card">
+
+                <span class="news-date">
+                    29. SEPTEMBER 2026
+                </span>
+
+                <p>
+                    Der aktivste Spieler der Woche?! W_Mellow hat gerade mal fast 6 Stunden Playtime und dominiert die BalTop mit 7k Money! Shoutouts gehen raus!
+                </p>
+
+            </article>
+
+            <article class="news-card">
+
+                <span class="news-date">
+                    29. SEPTEMBER 2026
+                </span>
+
+                <p>
+                    FREE Booster-Rang? Jeder Spieler der vor dem 1. November 2026 dem Server beitritt erhält kostenlos für einen Monat den BOOSTER-Rang, mit dem man viele nützliche Vorteile hat!
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <footer>
+        developed by dasnoooel
+        <br>
+        © 2026 NoelSMP. All Rights Reserved.
+    </footer>
+
+</main>
+
+</body>
+
+</html>
