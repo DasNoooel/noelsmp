@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,44 +12,43 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="icon" type="image/png" href="NoelSMPLM.png">
 
     <style>
+
         * {
             box-sizing: border-box;
             font-family: "Press Start 2P", monospace;
         }
 
-        html, body {
+        html,
+        body {
+            min-height: 100%;
             max-width: 100%;
+            margin: 0;
             overflow-x: hidden;
         }
 
         body {
-            font-size: clamp(8px, 1.2vw, 14px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            color: #eeeeee;
+            font-size: 10px;
+            line-height: 1.8;
         }
 
-        h1 {
-            font-size: clamp(16px, 3vw, 30px);
-        }
-
-        h2 {
-            font-size: clamp(12px, 2vw, 20px);
-        }
-
-        h4 {
-            font-size: clamp(8px, 1vw, 12px);
-        }
-
-        h5 {
-            font-size: clamp(7px, 0.9vw, 11px);
-        }
-
-        p {
-            font-size: clamp(8px, 1.1vw, 13px);
-            max-width: 100%;
-            overflow-wrap: break-word;
+        .page {
+            width: 100%;
+            max-width: 1150px;
+            margin: 0 auto;
         }
 
         .top-nav {
@@ -56,99 +56,213 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(15px, 4vw, 50px);
-            padding: 10px;
+            gap: clamp(25px, 6vw, 80px);
+            padding: 15px 10px;
+            margin-bottom: 25px;
         }
 
-        .top-nav .logo-link {
-            display: block;
-            flex-shrink: 1;
-        }
-
-        .top-nav .logo {
-            position: static !important;
-            left: auto !important;
-            top: auto !important;
-            transform: none !important;
-            display: block;
-            width: clamp(60px, 8vw, 100px) !important;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .top-nav .commands-link,
-        .top-nav .rules-link {
-            font-family: "Press Start 2P", monospace;
-            font-size: clamp(9px, 1.5vw, 18px);
+        .top-nav a {
             text-decoration: none;
+            font-size: clamp(8px, 1.5vw, 15px);
             white-space: nowrap;
+            transition: 0.2s ease;
         }
 
         .top-nav .commands-link {
-            color: #2b0a3d;
+            color: #b28cff;
         }
 
         .top-nav .rules-link {
-            color: brown;
+            color: #d69a6a;
         }
 
-        .owner {
-            color: darkblue;
+        .top-nav a:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.3);
         }
 
-        .admin {
-            color: darkred;
+        .logo-link {
+            display: block;
         }
 
-        .mod {
-            color: red;
+        .logo {
+            display: block;
+            width: clamp(65px, 8vw, 100px);
+            height: auto;
+            transition: 0.2s ease;
         }
 
-        .vip {
-            color: magenta;
+        .logo:hover {
+            transform: scale(1.05);
         }
 
-        .booster {
-            color: purple;
+        .header {
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 20px;
+            background: rgba(10, 20, 40, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            transition: 0.2s ease;
         }
 
-        .spieler {
-            color: lightgreen;
+        .header:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        .header h1 {
+            margin: 0 0 15px;
+            color: #63b5ff;
+            font-size: clamp(17px, 3vw, 26px);
+        }
+
+        .header p {
+            margin: 0;
+            color: #ffe45c;
+            font-size: clamp(7px, 1.1vw, 11px);
+            opacity: 0.85;
+        }
+
+        .ranks {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .rank {
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(10, 20, 40, 0.48);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            transition: 0.25s ease;
+        }
+
+        .rank:hover {
+            transform: translateY(-5px);
+            background: rgba(10, 20, 40, 0.58);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .rank h2 {
+            margin: 0 0 18px;
+            text-align: center;
+            font-size: clamp(13px, 2vw, 20px);
+        }
+
+        .rank p {
+            margin: 12px 0;
+            font-size: clamp(7px, 1vw, 10px);
+            overflow-wrap: break-word;
+        }
+
+        .rank strong {
+            font-weight: bold;
         }
 
         .media {
-    color: magenta;
-    text-align: center;
-}
+            color: #ff4fd8;
+        }
 
-.booster {
-    color: purple;
-    text-align: center;
-}
+        .booster {
+            color: #a85cff;
+        }
 
-html, body {
-    min-height: 100%;
-    margin: 0;
-}
+        .advantages {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+        .command {
+            color: #63c5ff;
+        }
 
-footer {
-    margin-top: auto;
-    text-align: center;
-    padding: 25px 10px;
-    font-size: 12px;
-}
+        .discord {
+            color: #8fa8ff;
+        }
+
+        .warning {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(10, 20, 40, 0.48);
+            border: 1px solid rgba(255, 100, 100, 0.15);
+            text-align: center;
+            color: #ff6d6d;
+            font-size: 8px;
+            line-height: 2;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 35px 10px 20px;
+            text-align: center;
+            font-size: 7px;
+            line-height: 2;
+            opacity: 0.45;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .top-nav {
+                gap: 18px;
+            }
+
+            .top-nav a {
+                font-size: 7px;
+            }
+
+            .logo {
+                width: 65px;
+            }
+
+            .header {
+                padding: 22px 15px;
+            }
+
+            .header h1 {
+                font-size: 15px;
+            }
+
+            .header p {
+                font-size: 7px;
+            }
+
+            .rank {
+                padding: 18px;
+            }
+
+            .rank h2 {
+                font-size: 11px;
+            }
+
+            .rank p {
+                font-size: 6px;
+            }
+
+            .warning {
+                font-size: 6px;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
-    <div class="top-nav">
+<div class="page">
+
+    <nav class="top-nav">
 
         <a href="commands.html" class="commands-link">
             COMMANDS
@@ -162,95 +276,153 @@ footer {
             RULES
         </a>
 
-    </div>
+    </nav>
 
-    <br>
-    <br>
-    <br>
+    <section class="header">
 
-    <div style="text-align: center;">
+        <h1>NOELSMP RÄNGE</h1>
 
-        <h1 style="color: cornflowerblue;">NOELSMP RÄNGE</h1>
-
-        <p style="color: yellow;">
+        <p>
             Hier findest du eine Übersicht über alle Ränge auf dem NoelSMP.
         </p>
 
-    </div>
+    </section>
 
-    <br>
+    <main class="ranks">
 
-    <hr>
-<h2 class="media">MEDIA</h2>
+        <section class="rank">
 
-<p>
-    <strong class="media">MEDIA</strong> -
-    Der Rang für Content Creator auf dem NoelSMP
-<br>Den MEDIA-Rang wird durch eine Bewerbung im Discord Server erworben! (Anforderungen werden dort erklärt)
-</p>
+            <h2 class="media">
+                MEDIA
+            </h2>
 
-<p>
-    <strong class="media">MEDIA VORTEILE:</strong><br>
-    <br>
-    <strong class="media">MEDIA</strong> Prefix<br>
-    Gleiche Vorteile wie der <strong class="booster">BOOSTER</strong>-Rang<br>
-    Mehr Commands als <strong class="booster">BOOSTER</strong>: <br>
-    /stonecutter <br>
-    /loom <br>
-    /anvil <br>
-    <br>
-    Mehr Vorteile: <br>
-    Eigener <strong class="media">MEDIA</strong> Discord-Chat! <br>
+            <p>
+                <strong class="media">MEDIA</strong> -
+                Der Rang für Content Creator auf dem NoelSMP
+            </p>
 
-    
-</p>
+            <p>
+                Den MEDIA-Rang wird durch eine Bewerbung im Discord Server erworben!
+                (Anforderungen werden dort erklärt)
+            </p>
 
-<br>
+            <div class="advantages">
 
-<h2 class="booster">BOOSTER</h2>
+                <p>
+                    <strong class="media">MEDIA VORTEILE:</strong>
+                </p>
 
-<p>
-    <strong class="booster">BOOSTER</strong> - Discord Booster
-    <br>
-    (Der Rang wird erworden wenn man auf dem NoelSMP
-    <br> oder auf dem DasNoooel Discord boostet)
-</p>
+                <p>
+                    <strong class="media">MEDIA</strong> Prefix
+                </p>
 
-<p>
-    <strong class="booster">BOOSTER VORTEILE:</strong><br>
-    <br>
-    <strong class="booster">BOOSTER</strong> Prefix<br>
-    Erweiterte Command-Nutzung:<br>
-    /ec<br>
-    /craft<br>
-    /trash<br>
-    /tpauto<br>
-    <br>
-    Mehr Vorteile: <br>
-    Eigener <strong class="booster">BOOSTER</strong> Discord Chat!
-    
-   
+                <p>
+                    Gleiche Vorteile wie der
+                    <strong class="booster">BOOSTER</strong>-Rang
+                </p>
 
-    <br>
-    <br>
-    <br>
+                <p>
+                    Mehr Commands als
+                    <strong class="booster">BOOSTER</strong>:
+                </p>
 
-    
+                <p class="command">
+                    /stonecutter
+                    <br>
+                    /loom
+                    <br>
+                    /anvil
+                </p>
 
-    <br>
-    <br>
-    <br>
-    <br>
+                <p>
+                    Mehr Vorteile:
+                    <br>
+                    Eigener
+                    <strong class="media">MEDIA</strong>
+                    Discord-Chat!
+                </p>
 
-    <footer>
-        <h4 style="color: red;">
+            </div>
+
+        </section>
+
+        <section class="rank">
+
+            <h2 class="booster">
+                BOOSTER
+            </h2>
+
+            <p>
+                <strong class="booster">BOOSTER</strong> -
+                Discord Booster
+            </p>
+
+            <p>
+                Der Rang wird erworben, wenn man auf dem NoelSMP
+                <br>
+                oder auf dem DasNoooel Discord boostet
+            </p>
+
+            <div class="advantages">
+
+                <p>
+                    <strong class="booster">BOOSTER VORTEILE:</strong>
+                </p>
+
+                <p>
+                    <strong class="booster">BOOSTER</strong> Prefix
+                </p>
+
+                <p>
+                    Erweiterte Command-Nutzung:
+                </p>
+
+                <p class="command">
+                    /ec
+                    <br>
+                    /craft
+                    <br>
+                    /trash
+                    <br>
+                    /tpauto
+                </p>
+
+                <p>
+                    Mehr Vorteile:
+                    <br>
+                    Eigener
+                    <strong class="booster">BOOSTER</strong>
+                    Discord Chat!
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <section class="warning">
+
         WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
+
         <br>
+
         bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
-    </h4>
-        developed by dasnoooel <br>
+
+    </section>
+
+</div>
+
+<footer>
+
+    developed by dasnoooel
+
+    <br>
+
     © 2026 NoelSMP. All Rights Reserved.
+
 </footer>
 
 </body>
+
 </html>

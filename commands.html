@@ -1,247 +1,550 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    .top-nav {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: clamp(15px, 4vw, 50px);
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .top-nav .logo-link {
-        display: block;
-        flex-shrink: 1;
-    }
-
-    .top-nav .logo {
-        position: static !important;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
-
-        display: block;
-        width: clamp(60px, 8vw, 100px) !important;
-        height: auto;
-        max-width: 100%;
-    }
-
-    .top-nav .rules-link,
-    .top-nav .ranks-link {
-        font-family: "Press Start 2P", monospace;
-        font-size: clamp(9px, 1.5vw, 18px);
-        text-decoration: none;
-        white-space: nowrap;
-    }
-
-    .top-nav .rules-link {
-        color: brown;
-    }
-
-    .top-nav .ranks-link {
-        color: darkcyan;
-    }
-</style>
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoelSMP ● Command List </title>
+
+    <title>NoelSMP ● Commands</title>
+
     <link rel="stylesheet" href="commands_background.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="NoelSMPLM.png">
-   <style>
-        *{
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="icon" type="image/png" href="NoelSMPLM.png">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
             font-family: "Press Start 2P", monospace;
-            font-size: small;
         }
 
-        html, body {
-    min-height: 100%;
-    margin: 0;
-}
+        html,
+        body {
+            min-height: 100%;
+            margin: 0;
+        }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #eeeeee;
+            font-size: 10px;
+            line-height: 1.8;
+            padding: 15px;
+        }
 
-footer {
-    margin-top: auto;
-    text-align: center;
-    padding: 25px 10px;
-    font-size: 12px;
-}
+        .page {
+            width: 100%;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .top-nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(25px, 6vw, 80px);
+            padding: 15px 10px;
+            margin-bottom: 25px;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            font-size: clamp(8px, 1.5vw, 15px);
+            white-space: nowrap;
+            transition: 0.2s ease;
+        }
+
+        .top-nav .rules-link {
+            color: #d69a6a;
+        }
+
+        .top-nav .ranks-link {
+            color: #58d0c5;
+        }
+
+        .top-nav a:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.3);
+        }
+
+        .logo-link {
+            display: block;
+        }
+
+        .logo {
+            display: block;
+            width: clamp(65px, 8vw, 100px);
+            height: auto;
+            transition: 0.2s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 20px;
+            background: rgba(10, 20, 40, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            margin: 0 0 15px;
+            color: #63b5ff;
+            font-size: clamp(17px, 3vw, 26px);
+        }
+
+        .header p {
+            margin: 10px 0;
+            opacity: 0.75;
+        }
+
+        .permission-info {
+            color: #ff4fd8;
+            font-weight: bold;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        details {
+            border-radius: 16px;
+            background: rgba(10, 20, 40, 0.48);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            transition: 0.2s ease;
+        }
+
+        details:hover {
+            background: rgba(10, 20, 40, 0.58);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 20px 22px;
+            font-weight: bold;
+            font-size: 12px;
+            list-style-position: inside;
+            transition: 0.2s ease;
+        }
+
+        summary:hover {
+            filter: brightness(1.3);
+        }
+
+        details > p {
+            margin: 0;
+            padding: 7px 25px;
+            font-size: 9px;
+        }
+
+        details > p:first-of-type {
+            padding-top: 18px;
+        }
+
+        details > p:last-child {
+            padding-bottom: 20px;
+        }
+
+        details details {
+            margin: 10px 20px;
+            background: rgba(255, 255, 255, 0.035);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        details details summary {
+            padding: 15px 18px;
+            font-size: 9px;
+            color: #8dbfff;
+        }
+
+        details details p {
+            padding: 5px 18px;
+            font-size: 8px;
+        }
+
+        code {
+            color: #63c5ff;
+            font-family: "Press Start 2P", monospace;
+        }
+
+        .server summary {
+            color: #63b5ff;
+        }
+
+        .economy summary {
+            color: #e0b44c;
+        }
+
+        .social summary {
+            color: #55c76a;
+        }
+
+        .friend summary {
+            color: #8dbfff;
+        }
+
+        .clan summary {
+            color: #8dbfff;
+        }
+
+        .premium {
+            color: #ff4fd8 !important;
+        }
+
+        .warning {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(10, 20, 40, 0.48);
+            border: 1px solid rgba(255, 100, 100, 0.15);
+            text-align: center;
+            color: #ff6d6d;
+            font-size: 8px;
+            line-height: 2;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 35px 10px 20px;
+            text-align: center;
+            font-size: 7px;
+            line-height: 2;
+            opacity: 0.45;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .top-nav {
+                gap: 18px;
+            }
+
+            .top-nav a {
+                font-size: 7px;
+            }
+
+            .logo {
+                width: 65px;
+            }
+
+            .header {
+                padding: 22px 15px;
+            }
+
+            .header h1 {
+                font-size: 15px;
+            }
+
+            .header p {
+                font-size: 7px;
+            }
+
+            summary {
+                padding: 16px;
+                font-size: 9px;
+            }
+
+            details > p {
+                padding-left: 17px;
+                padding-right: 17px;
+                font-size: 7px;
+            }
+
+            details details {
+                margin: 8px 10px;
+            }
+
+            details details summary {
+                font-size: 7px;
+            }
+
+            details details p {
+                font-size: 6px;
+            }
+
+            .warning {
+                font-size: 6px;
+            }
+
+        }
+
     </style>
 
 </head>
-<body style="font-family: Arial, Helvetica, sans-serif;">
-    <div class="top-nav">
 
-    <a href="rules.html" class="rules-link">
-        RULES
-    </a>
+<body>
 
-    <a href="index.html"logo-link">
-        <img src="NoelSMPL.png" class="logo" alt="NoelSMP">
-    </a>
+<div class="page">
 
-    <a href="ranks.html" class="ranks-link">
-        RANKS
-    </a>
+    <nav class="top-nav">
 
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div style="text-align: center;">
-    <h1>LISTE ALLER COMMANDS</h1>
+        <a href="rules.html" class="rules-link">
+            RULES
+        </a>
 
-    <p>Hier ist eine Liste von allen Commands die man als Spieler benutzt kann:</p>
+        <a href="index.html" class="logo-link">
+            <img src="NoelSMPL.png" class="logo" alt="NoelSMP">
+        </a>
 
-    <p style="color:magenta;font-weight: bold;">
-        *Commands die PINK sind, können nur von BOOSTER, MEDIAS, VIPS und Team Rängen benutzt werden!
-    </p>
-</div>
-<hr>
-<br>
-<p style="font-weight: bold;">KATEGORIEN</p>
-<br>
-<details><summary style="color: dodgerblue; font-weight: bold;">SERVER</summary>
-    <p>Dies sind alle allgemeinen Servercommands:</p>
-    <p> /spawn | Teleportiert dich an den Spawn</p>
-    <p> /rtp | Teleportiert dich zu einer zufälligen Koordinate in einer auserwählten Dimension</p>
-    <p> /tpa | Schickt eine Teleportationsanfrage an einen Spieler</p>
-    <p> /tpahere | Schickt eine Teleportationsanfrage zu einem Spieler, ob er sich zu dich teleportieren will</p>
-    <p style="color: magenta;"> /tpauto | Teleportiert automatisch jeden Spieler zu dir, der dir eine TPA sendet</p>
-    <p> /settings | Öffnet deine Einstellungen</p>
-    <p style="color: magenta;"> /craft | Öffnet ein mobiles Craftingtable Menü</p>
-    <p style="color: magenta;"> /enderchest | Öffnet deine mobile Enderchest</p>
-    <p style="color: magenta;"> /trash | Öffnet ein Mülleimer-Menü, wo du Sachen reinpacken kannst die du nicht brauchst (! Weggeworfene Items können nicht wieder hergestellt werden)</p>
-    <p style="color: magenta;"> /anvil | Öffnet ein mobiles Anvil-Menü</p>
-    <p style="color: magenta;"> /loom | Öffnet ein mobiles Loom-Menü</p>
-    <p style="color: magenta;"> /stonecutter | Öffnet ein mobiles Stonecutter-Menü</p>
-    <p> /homes | Öffnet ein Home-Menü, wo du alle deine Homes siehst</p>
-    <p> /sethome | Setzte ein Home auf der Koordinate auf der du gerade stehst</p>
-    <p> /delhome | Löscht ein auserwähltes Home</p> </p>
-</details>
-<hr style="width: 25%; margin-left: 0; margin-right: auto; border: none; border-top: 3px solid black;">
-<details><summary style="color: goldenrod; font-weight: bold;">ECONOMY</summary>
-    <p>Dies sind alle Commands die etwas mit dem Geldsystem zu tun haben:</p>
-    <p> /pay | Bezahle eine benutzerdefinierte Summe an Geld an einen auserwählten Spieler</p>
-    <p> /shop | Öffnet den Item-Shop, wo man unter anderem Essen, Ressourcen und PVP-Items kaufen kann</p>
-    <p> /sell | Öffnet ein Menü, wo du Blöcke und Items verkaufen kannst</p>
-    <p> /ah | Öffnet das Auktionshaus, wo du Sachen von anderen kaufen oder du deine eigenen Sachen zum benutzerdefinierten Preis verkaufen kannst</p>
-</details>
-<hr style="width: 25%; margin-left: 0; margin-right: auto; border: none; border-top: 3px solid black;">
-<details><summary style="color: green; font-weight: bold;">SOZIAL</summary>
-    <p>Dies sind alle Commands die etwas mit dem sozialen Netzwerk zu tun haben:</p>
-    <details><summary style="color: cornflowerblue;">FREUNDE</summary>
-        <p> /friend add | Sendet eine Freundschaftsanfrage an eine auserwählte Person</p>
-        <p> /friend remove | Entfernt einen Freund aus der Freundesliste</p>
-        <p> /friend list | Zeigt dir deine Freundesliste</p>
-        <p> /friend mute | Schaltet die Textnachrichten eines Freundes stumm</p>
-    </details>
- <br>
-    <details><summary style="color: cornflowerblue;">CLAN</summary>
-        <details>
-        <summary>Clan-Verwaltung</summary>
+        <a href="ranks.html" class="ranks-link">
+            RANKS
+        </a>
 
-        <p><code>/clan</code> | Öffnet das Haupt-Clan-Menü</p>
-        <p><code>/clan create &lt;Name&gt;</code> | Erstellt einen Clan</p>
-        <p><code>/clan invite &lt;Spieler&gt;</code> | Lädt einen Spieler in den Clan ein</p>
-        <p><code>/clan join</code> | Nimmt eine Clan-Einladung an</p>
-        <p><code>/clan deny</code> | Lehnt eine Clan-Einladung ab</p>
-        <p><code>/clan kick &lt;Spieler&gt;</code> | Entfernt einen Spieler aus dem Clan</p>
-        <p><code>/clan promote &lt;Spieler&gt;</code> | Befördert ein Clan-Mitglied</p>
-        <p><code>/clan demote &lt;Spieler&gt;</code> | Stuft ein Clan-Mitglied herab</p>
-        <p><code>/clan transfer &lt;Spieler&gt;</code> | Überträgt die Clan-Leitung</p>
-        <p><code>/clan leave</code> | Verlässt den Clan</p>
-        <p><code>/clan disband</code> | Löst den Clan auf</p>
+    </nav>
 
-    </details>
+    <section class="header">
 
+        <h1>LISTE ALLER COMMANDS</h1>
 
-    <details>
-        <summary>Clan-Informationen &amp; Statistiken</summary>
+        <p>
+            Hier ist eine Liste von allen Commands die man als Spieler benutzt kann:
+        </p>
 
-        <p><code>/clan info [Clan]</code> | Zeigt Informationen über einen Clan</p>
-        <p><code>/clan stats</code> | Zeigt detaillierte Clan-Statistiken</p>
-        <p><code>/clan top</code> | Zeigt die Clan-Rangliste</p>
-        <p><code>/clan wartop</code> | Zeigt die Kriegs-Rangliste</p>
-        <p><code>/clan list</code> | Zeigt alle Clans</p>
+        <p class="permission-info">
+            *Commands die PINK sind, können nur von BOOSTER, MEDIAS, VIPS und Team Rängen benutzt werden!
+        </p>
 
-    </details>
+    </section>
 
+    <main class="categories">
 
-    <details>
-        <summary>Clan-Kriege &amp; Diplomatie</summary>
+        <details class="server">
 
-        <p><code>/clan war &lt;Clan&gt;</code> | Erklärt einem Clan den Krieg</p>
-        <p><code>/clan peace &lt;Clan&gt;</code> | Beendet einen Krieg</p>
-        <p><code>/clan ally &lt;...&gt; &lt;Clan&gt;</code> | Verwaltet Bündnisse mit anderen Clans</p>
-        <p><code>/clan enemy &lt;...&gt;</code> | Verwaltet feindliche Clans</p>
+            <summary>SERVER</summary>
 
-    </details>
+            <p>Dies sind alle allgemeinen Servercommands:</p>
 
+            <p>/spawn | Teleportiert dich an den Spawn</p>
 
-    <details>
-        <summary>Clan-Anpassungen</summary>
+            <p>/rtp | Teleportiert dich zu einer zufälligen Koordinate in einer auserwählten Dimension</p>
 
-        <p><code>/clan prefix &lt;Text&gt;</code> | Setzt einen farbigen Clan-Präfix</p>
-        <p><code>/clan emoji [gui]</code> | Öffnet das Emoji-Menü bzw. legt ein Clan-Emoji fest</p>
-        <p><code>/clan motd &lt;Text&gt;</code> | Legt die Clan-Nachricht des Tages fest</p>
+            <p>/tpa | Schickt eine Teleportationsanfrage an einen Spieler</p>
 
-    </details>
+            <p>/tpahere | Schickt eine Teleportationsanfrage zu einem Spieler, ob er sich zu dich teleportieren will</p>
 
+            <p class="premium">/tpauto | Teleportiert automatisch jeden Spieler zu dir, der dir eine TPA sendet</p>
 
-    <details>
-        <summary>Clan-Heimat</summary>
+            <p>/settings | Öffnet deine Einstellungen</p>
 
-        <p><code>/clan sethome</code> | Setzt den Clan-Homepunkt</p>
-        <p><code>/clan home</code> | Teleportiert zum Clan-Home</p>
+            <p class="premium">/craft | Öffnet ein mobiles Craftingtable Menü</p>
 
-    </details>
+            <p class="premium">/enderchest | Öffnet deine mobile Enderchest</p>
 
+            <p class="premium">/trash | Öffnet ein Mülleimer-Menü, wo du Sachen reinpacken kannst die du nicht brauchst (! Weggeworfene Items können nicht wieder hergestellt werden)</p>
 
-    <details>
-        <summary>Clan-Bank &amp; Punkte</summary>
+            <p class="premium">/anvil | Öffnet ein mobiles Anvil-Menü</p>
 
-        <p><code>/clan bank</code> | Öffnet die Clan-Bank</p>
-        <p><code>/clan deposit</code> | Zahlt Geld in die Clan-Bank ein</p>
-        <p><code>/clan withdraw</code> | Hebt Geld aus der Clan-Bank ab</p>
+            <p class="premium">/loom | Öffnet ein mobiles Loom-Menü</p>
 
-    </details>
+            <p class="premium">/stonecutter | Öffnet ein mobiles Stonecutter-Menü</p>
 
+            <p>/homes | Öffnet ein Home-Menü, wo du alle deine Homes siehst</p>
 
-    <details>
-        <summary>Clan-Kommunikation</summary>
+            <p>/sethome | Setzte ein Home auf der Koordinate auf der du gerade stehst</p>
 
-        <p><code>/clanchat</code> | Schreibt im Clan-Chat</p>
-        <p><code>/allychat</code> | Schreibt im Bündnis-Chat</p>
-        <p><code>/clanchatspy</code> | Ermöglicht das Mitlesen des Clan-Chats</p>
-        <p><code>/clanchest</code> | Öffnet die Clan-Truhe</p>
+            <p>/delhome | Löscht ein auserwähltes Home</p>
 
-    </details>
-</details>
-</details>
+        </details>
 
+        <details class="economy">
 
- <footer>
-    <h4 style="color: red;">
+            <summary>ECONOMY</summary>
+
+            <p>Dies sind alle Commands die etwas mit dem Geldsystem zu tun haben:</p>
+
+            <p>/pay | Bezahle eine benutzerdefinierte Summe an Geld an einen auserwählten Spieler</p>
+
+            <p>/shop | Öffnet den Item-Shop, wo man unter anderem Essen, Ressourcen und PVP-Items kaufen kann</p>
+
+            <p>/sell | Öffnet ein Menü, wo du Blöcke und Items verkaufen kannst</p>
+
+            <p>/ah | Öffnet das Auktionshaus, wo du Sachen von anderen kaufen oder du deine eigenen Sachen zum benutzerdefinierten Preis verkaufen kannst</p>
+
+        </details>
+
+        <details class="social">
+
+            <summary>SOZIAL</summary>
+
+            <p>Dies sind alle Commands die etwas mit dem sozialen Netzwerk zu tun haben:</p>
+
+            <details class="friend">
+
+                <summary>FREUNDE</summary>
+
+                <p>/friend add | Sendet eine Freundschaftsanfrage an eine auserwählte Person</p>
+
+                <p>/friend remove | Entfernt einen Freund aus der Freundesliste</p>
+
+                <p>/friend list | Zeigt dir deine Freundesliste</p>
+
+                <p>/friend mute | Schaltet die Textnachrichten eines Freundes stumm</p>
+
+            </details>
+
+            <details class="clan">
+
+                <summary>CLAN</summary>
+
+                <details>
+
+                    <summary>Clan-Verwaltung</summary>
+
+                    <p><code>/clan</code> | Öffnet das Haupt-Clan-Menü</p>
+
+                    <p><code>/clan create &lt;Name&gt;</code> | Erstellt einen Clan</p>
+
+                    <p><code>/clan invite &lt;Spieler&gt;</code> | Lädt einen Spieler in den Clan ein</p>
+
+                    <p><code>/clan join</code> | Nimmt eine Clan-Einladung an</p>
+
+                    <p><code>/clan deny</code> | Lehnt eine Clan-Einladung ab</p>
+
+                    <p><code>/clan kick &lt;Spieler&gt;</code> | Entfernt einen Spieler aus dem Clan</p>
+
+                    <p><code>/clan promote &lt;Spieler&gt;</code> | Befördert ein Clan-Mitglied</p>
+
+                    <p><code>/clan demote &lt;Spieler&gt;</code> | Stuft ein Clan-Mitglied herab</p>
+
+                    <p><code>/clan transfer &lt;Spieler&gt;</code> | Überträgt die Clan-Leitung</p>
+
+                    <p><code>/clan leave</code> | Verlässt den Clan</p>
+
+                    <p><code>/clan disband</code> | Löst den Clan auf</p>
+
+                </details>
+
+                <details>
+
+                    <summary>Clan-Informationen &amp; Statistiken</summary>
+
+                    <p><code>/clan info [Clan]</code> | Zeigt Informationen über einen Clan</p>
+
+                    <p><code>/clan stats</code> | Zeigt detaillierte Clan-Statistiken</p>
+
+                    <p><code>/clan top</code> | Zeigt die Clan-Rangliste</p>
+
+                    <p><code>/clan wartop</code> | Zeigt die Kriegs-Rangliste</p>
+
+                    <p><code>/clan list</code> | Zeigt alle Clans</p>
+
+                </details>
+
+                <details>
+
+                    <summary>Clan-Kriege &amp; Diplomatie</summary>
+
+                    <p><code>/clan war &lt;Clan&gt;</code> | Erklärt einem Clan den Krieg</p>
+
+                    <p><code>/clan peace &lt;Clan&gt;</code> | Beendet einen Krieg</p>
+
+                    <p><code>/clan ally &lt;...&gt; &lt;Clan&gt;</code> | Verwaltet Bündnisse mit anderen Clans</p>
+
+                    <p><code>/clan enemy &lt;...&gt;</code> | Verwaltet feindliche Clans</p>
+
+                </details>
+
+                <details>
+
+                    <summary>Clan-Anpassungen</summary>
+
+                    <p><code>/clan prefix &lt;Text&gt;</code> | Setzt einen farbigen Clan-Präfix</p>
+
+                    <p><code>/clan emoji [gui]</code> | Öffnet das Emoji-Menü bzw. legt ein Clan-Emoji fest</p>
+
+                    <p><code>/clan motd &lt;Text&gt;</code> | Legt die Clan-Nachricht des Tages fest</p>
+
+                </details>
+
+                <details>
+
+                    <summary>Clan-Heimat</summary>
+
+                    <p><code>/clan sethome</code> | Setzt den Clan-Homepunkt</p>
+
+                    <p><code>/clan home</code> | Teleportiert zum Clan-Home</p>
+
+                </details>
+
+                <details>
+
+                    <summary>Clan-Bank &amp; Punkte</summary>
+
+                    <p><code>/clan bank</code> | Öffnet die Clan-Bank</p>
+
+                    <p><code>/clan deposit</code> | Zahlt Geld in die Clan-Bank ein</p>
+
+                    <p><code>/clan withdraw</code> | Hebt Geld aus der Clan-Bank ab</p>
+
+                </details>
+
+                <details>
+
+                    <summary>Clan-Kommunikation</summary>
+
+                    <p><code>/clanchat</code> | Schreibt im Clan-Chat</p>
+
+                    <p><code>/allychat</code> | Schreibt im Bündnis-Chat</p>
+
+                    <p><code>/clanchatspy</code> | Ermöglicht das Mitlesen des Clan-Chats</p>
+
+                    <p><code>/clanchest</code> | Öffnet die Clan-Truhe</p>
+
+                </details>
+
+            </details>
+
+        </details>
+
+    </main>
+
+    <section class="warning">
+
         WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
+
         <br>
+
         bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
-    </h4>
-        developed by dasnoooel <br>
+
+    </section>
+
+</div>
+
+<footer>
+
+    developed by dasnoooel
+
+    <br>
+
     © 2026 NoelSMP. All Rights Reserved.
- </footer>
+
+</footer>
+
 </body>
+
 </html>

@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>NoelSMP</title>
 
     <link rel="stylesheet" href="images.css">
     <link rel="stylesheet" href="text.css">
     <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="news.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="icon" type="image/png" href="NoelSMPLM.png">
+
     <style>
-        /* Responsive - verändert dein normales Design nicht */
+
         * {
             box-sizing: border-box;
         }
 
-        html, body {
+        html {
+            scroll-behavior: smooth;
             max-width: 100%;
             overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px 20px 0;
+            max-width: 100%;
+            overflow-x: hidden;
+            font-family: "Press Start 2P", monospace;
+            font-size: 11px;
+            line-height: 1.8;
+            color: #eeeeee;
         }
 
         img {
@@ -29,162 +51,583 @@
             height: auto;
         }
 
-        p, h1, h2, h3, h4, h5, a {
-            max-width: 100%;
-            overflow-wrap: break-word;
+        .page {
+            width: 100%;
+            max-width: 1150px;
+            margin: 0 auto;
         }
 
-        body {
+        .hero {
+            text-align: center;
+            padding: 45px 25px;
+            margin-bottom: 25px;
+            border-radius: 24px;
+            background: rgba(10, 20, 40, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            transition: 0.25s ease;
+        }
+
+        .hero:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .hero h1 {
+            margin: 0 0 25px;
+            color: #63b5ff;
+            font-size: clamp(20px, 4vw, 32px);
+        }
+
+        .hero img {
+            width: 300px;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.25s ease;
+        }
+
+        .hero img:hover {
+            transform: scale(1.03);
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 28px;
+            border-radius: 20px;
+            background: rgba(10, 20, 40, 0.48);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            transition: 0.25s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            background: rgba(10, 20, 40, 0.57);
+            border-color: rgba(255, 255, 255, 0.13);
+        }
+
+        .section h2 {
+            margin: 0 0 15px;
+            color: #63b5ff;
+            font-size: 18px;
+        }
+
+        .socials {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 58px;
+            padding: 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             font-family: "Press Start 2P", monospace;
-            font-size: small;
+            font-size: 8px;
+            transition: 0.2s ease;
         }
 
-        /* Nur wenn das Fenster sehr schmal wird */
+        .social:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .twitch:hover {
+            color: #b98cff;
+            border-color: #9146ff;
+        }
+
+        .youtube:hover {
+            color: #ff6b6b;
+            border-color: #ff0000;
+        }
+
+        .instagram:hover {
+            color: #ff8bd4;
+            border-color: #e1306c;
+        }
+
+        .discord:hover {
+            color: #8fa8ff;
+            border-color: #5865f2;
+        }
+
+        .about {
+            margin: 0;
+            opacity: 0.75;
+            line-height: 2.1;
+            font-size: 10px;
+        }
+
+        .server-ip {
+            color: #63c5ff;
+        }
+
+        .quickstart {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .quickstart a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 130px;
+            border-radius: 18px;
+            text-decoration: none;
+            font-family: "Press Start 2P", monospace;
+            font-size: 13px;
+            color: white;
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .quickstart a:hover {
+            transform: translateY(-7px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .rules:hover {
+            color: #d69a6a;
+            border-color: #a96f43 !important;
+        }
+
+        .commands:hover {
+            color: #b28cff;
+            border-color: #774fc4 !important;
+        }
+
+        .ranks:hover {
+            color: #58d0c5;
+            border-color: #3da69d !important;
+        }
+
+        .welcome {
+            text-align: center;
+            font-size: 13px;
+            color: #63b5ff;
+        }
+
+        .warning {
+            color: #ff6d6d;
+            font-size: 9px;
+            line-height: 2;
+        }
+
+        footer {
+            margin-top: 35px;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 8px;
+            line-height: 2;
+            opacity: 0.45;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        @media (max-width: 900px) {
+
+            .socials {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quickstart {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
         @media (max-width: 600px) {
+
             body {
-                font-size: 10px;
+                padding: 12px 10px 0;
             }
 
-            h1 {
-                font-size: 20px;
+            .section {
+                padding: 20px;
+                border-radius: 17px;
             }
 
-            h2 {
-                font-size: 16px;
+            .hero {
+                padding: 35px 15px;
+                border-radius: 20px;
             }
 
-            h3 {
-                font-size: 14px;
+            .hero img {
+                width: 230px;
             }
 
-            h4 {
+            .social {
+                font-size: 7px;
+            }
+
+            .about {
+                font-size: 8px;
+            }
+
+            .section h2 {
+                font-size: 15px;
+            }
+
+            .quickstart a {
+                min-height: 105px;
                 font-size: 11px;
             }
 
-            h5 {
-                font-size: 9px;
+            .warning {
+                font-size: 7px;
             }
 
-            img {
-                max-width: 100%;
-                height: auto;
-            }
         }
 
-        .quickstart-link {
-    font-family: "Press Start 2P", monospace !important;
-    text-decoration: none !important;
-    font-size: 20px !important;
+        .news-section .news-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
 }
 
-.quickstart-rules {
-    color: brown !important;
+.news-section .news-card {
+position: relative;
+min-height: 145px;
+padding: 18px;
+padding-top: 40px;
+border-radius: 15px;
+background: rgba(255, 255, 255, 0.045);
+border: 1px solid rgba(255, 255, 255, 0.08);
+overflow: hidden;
+transition: 0.25s ease;
 }
 
-.quickstart-commands {
-    color: #2b0a3d !important;
+.news-section .news-card:hover {
+transform: translateY(-5px);
+background: rgba(255, 255, 255, 0.075);
+border-color: rgba(255, 255, 255, 0.18);
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.quickstart-ranks {
-    color: darkcyan !important;
+.news-section .news-card::before {
+content: "";
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 3px;
+background: #63b5ff;
 }
+
+.news-section .news-card:nth-child(2)::before {
+background: #ffd35c;
+}
+
+.news-section .news-card:nth-child(3)::before {
+background: #a978ff;
+}
+
+.news-section .news-date {
+position: absolute;
+top: 13px;
+right: 14px;
+color: rgba(255, 255, 255, 0.4);
+font-size: 6px;
+white-space: nowrap;
+}
+
+.news-section .news-card p {
+margin: 0;
+color: #eeeeee;
+font-size: 8px;
+line-height: 1.9;
+}
+
+.news-section .all-news-button {
+transition: 0.2s ease;
+}
+
+.news-section .all-news-button:hover {
+transform: translateY(-3px);
+}
+
+@media (max-width: 900px) {
+
+.news-section .news-grid {
+    grid-template-columns: 1fr;
+}
+
+}
+
+@media (max-width: 600px) {
+
+.news-section .news-card {
+    min-height: 125px;
+    padding: 16px;
+    padding-top: 38px;
+}
+
+.news-section .news-card p {
+    font-size: 7px;
+    line-height: 1.8;
+}
+
+.news-section .news-date {
+    font-size: 5px;
+}
+
+}
+
+
     </style>
+
 </head>
 
-<body style="color: black;">
+<body>
 
-    <h1 style="color: blue;">Willkommen auf dem NoelSMP</h1>
+<div class="page">
 
-    <h2 style="color: darkmagenta;">SOZIALE NETZWERKE</h2>
+    <section class="hero">
 
-    <p>Hier kommt ihr zu den Social Media Accounts von DasNoooel</p>
+        <h1>WILLKOMMEN AUF DEM NOELSMP</h1>
 
-    <a style="color: darkviolet;" href="https://www.twitch.tv/dasnoooel" target="_blank">TWITCH</a>
-    <a style="color: red;" href="https://www.youtube.com/@DasNoooel" target="_blank">YOUTUBE</a>
-    <a style="color: magenta;" href="https://www.instagram.com/dasnoooel/" target="_blank">INSTAGRAM</a>
-    <a style="color: lightskyblue;" href="https://discord.gg/QF6ErUhh6e" target="_blank">SMP DISCORD</a>
-    <a style="color: blue;" href="https://discord.gg/bMtxahTTHz" target="_blank">COMMUNITY DISCORD</a>
-<br>
-<br>
-    <img src="NoelSMPL.png" style="width: 300px; max-width: 100%; height: auto; display: block;" alt="NoeSMPL">
+        <img
+            src="NoelSMPL.png"
+            alt="NoelSMP"
+        >
+
+    </section>
+
+    <section class="section">
+
+        <h2>SOZIALE NETZWERKE</h2>
+
+        <p>
+            Hier kommt ihr zu den Social Media Accounts von DasNoooel
+        </p>
+
+        <div class="socials">
+
+            <a
+                href="https://www.twitch.tv/dasnoooel"
+                target="_blank"
+                rel="noopener"
+                class="social twitch"
+            >
+                TWITCH
+            </a>
+
+            <a
+                href="https://www.youtube.com/@DasNoooel"
+                target="_blank"
+                rel="noopener"
+                class="social youtube"
+            >
+                YOUTUBE
+            </a>
+
+            <a
+                href="https://www.instagram.com/dasnoooel/"
+                target="_blank"
+                rel="noopener"
+                class="social instagram"
+            >
+                INSTAGRAM
+            </a>
+
+            <a
+                href="https://discord.gg/QF6ErUhh6e"
+                target="_blank"
+                rel="noopener"
+                class="social discord"
+            >
+                SMP DISCORD
+            </a>
+
+            <a
+                href="https://discord.gg/bMtxahTTHz"
+                target="_blank"
+                rel="noopener"
+                class="social discord"
+            >
+                COMMUNITY DISCORD
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="section news-section">
+
+<div class="section-header">
+
+    <div>
+        <span class="section-label">NOELSMP</span>
+        <h2>NEWS</h2>
+    </div>
+
+    <a href="news.html" class="all-news-button">
+        ALLE NEWS →
+    </a>
+
+</div>
+
+<div class="news-grid">
+
+    <article class="news-card">
+
+        <span class="news-date">
+            29. SEPTEMBER 2026
+        </span>
+
+        <p>
+            FREE Booster-Rang? Jeder Spieler der vor dem 1. November 2026 dem Server beitritt erhält kostenlos für einen Monat den BOOSTER-Rang, mit dem man viele nützliche Vorteile hat!
+        </p>
+
+    </article>
+
+    <article class="news-card">
+
+        <span class="news-date">
+            29. SEPTEMBER 2026
+        </span>
+
+        <p>
+            Der aktivste Spieler der Woche?! W_Mellow hat gerade mal fast 6 Stunden Playtime und dominiert die BalTop mit 7k Money! Shoutouts gehen raus!
+        </p>
+
+    </article>
+
+    <article class="news-card">
+
+        <span class="news-date">
+            28. SEPTEMBER 2026
+        </span>
+
+        <p>
+            NEUES Home-Plugin! Ab heute benutzen wir BHomes für das Home-Plugin, auch wenn das Plugin nicht 100% perfekt ist suchen wir weiterhin nach einem besseren!
+        </p>
+
+    </article>
+
+</div>
+
+</section>
 
 
-    <h2 style="color: yellow;">INFORMATIONEN</h2>
+    <section class="section">
 
-    <p style="color: orange;">ÜBER UNS</p>
+        <h2>ÜBER UNS</h2>
 
-    <p>
-        Wir haben viel zeit investiert um diesen Server so gut wie möglich zu gestalten,
-        <br>
-        wir sind so viele Betas durchgegangen. Damals als unser Server als Aternos-Server begann,
-        <br>
-        wussten wir dass es nur eine Frage der Zeit ist bis wir unseren richtigen Server kaufen...
-        <br>
-        <br>
+        <p class="about">
 
-        Und hier sind wir, nach monatelangen Experimenten starten wir unseren brandeigenen SMP,
-        den SMP könnt ihr unter
-        <span style="color: goldenrod;">NoelSMP.net</span>
-        erreichen und wir sind stets glücklich und aufgeregt die ersten Spieler zu haben!
-        <br>
-        Also worauf wartet ihr, startet euer Abenteuer!
-    </p>
+            Wir haben viel zeit investiert um diesen Server so gut wie möglich zu gestalten,
+            <br>
+
+            wir sind so viele Betas durchgegangen. Damals als unser Server als Aternos-Server begann,
+            <br>
+
+            wussten wir dass es nur eine Frage der Zeit ist bis wir unseren richtigen Server kaufen...
+
+            <br><br>
+
+            Und hier sind wir, nach monatelangen Experimenten starten wir unseren brandeigenen SMP,
+            den SMP könnt ihr unter
+
+            <span class="server-ip">
+                NoelSMP.net
+            </span>
+
+            erreichen und wir sind stets glücklich und aufgeregt die ersten Spieler zu haben!
+
+            <br>
+
+            Also worauf wartet ihr, startet euer Abenteuer!
+
+        </p>
+
+    </section>
+
+    <section class="section">
+
+        <h2>QUICKSTART</h2>
+
+        <p>
+            Hier findet ihr nun eine Liste von Infos die euch einen guten Start auf dem SMP bieten:
+        </p>
+
+        <div class="quickstart">
+
+            <a
+                href="rules.html"
+                class="rules"
+            >
+                RULES
+            </a>
+
+            <a
+                href="commands.html"
+                class="commands"
+            >
+                COMMANDS
+            </a>
+
+            <a
+                href="ranks.html"
+                class="ranks"
+            >
+                RANKS
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="section welcome">
+
+        Viel Spass auf dem SMP :)
+
+    </section>
+
+    <section class="section">
+
+        <div class="warning">
+
+            WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
+
+            <br>
+
+            bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
+
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+
+    developed by dasnoooel
 
     <br>
-    <br>
 
-    <h2 style="color: yellow;">QUICKSTART</h2>
-
-    <p>
-        Hier findet ihr nun eine Liste von Infos die euch einen guten Start auf dem SMP bieten:
-    </p>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <a href="rules.html" class="quickstart-link quickstart-rules">
-    RULES
-</a>
-
-<a href="commands.html" class="quickstart-link quickstart-commands">
-    COMMANDS
-</a>
-
-<a href="ranks.html" class="quickstart-link quickstart-ranks">
-    RANKS
-</a>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Viel Spass auf dem SMP :)</h3>
-
-    <br>
-    <br>
-    <br>
-
-    <h4 style="color: red;">
-        WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
-        <br>
-        bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
-    </h4>
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <footer>
-        developed by dasnoooel <br>
     © 2026 NoelSMP. All Rights Reserved.
+
 </footer>
+
+<script src="news.js"></script>
 
 </body>
 </html>
