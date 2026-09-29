@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NoelSMP – Admin Panel</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, #142d55 0%, #071426 45%, #030914 100%);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: "Press Start 2P", monospace;
+            color: #6db7ff;
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+
+        .panel {
+            background: rgba(10, 25, 50, 0.85);
+            border: 1px solid rgba(80, 150, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        h2 {
+            font-family: "Press Start 2P", monospace;
+            font-size: 16px;
+            color: #8ec7ff;
+            margin-top: 0;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            background: #071426;
+            border: 1px solid #315b91;
+            border-radius: 8px;
+            padding: 14px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #6db7ff;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 13px 20px;
+            background: #1769d1;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #2582f2;
+            transform: translateY(-1px);
+        }
+
+        .logout {
+            background: #a83232;
+            float: right;
+        }
+
+        .logout:hover {
+            background: #d33d3d;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: #6dff9a;
+            margin-top: 10px;
+        }
+
+        .news-item {
+            background: rgba(5, 15, 30, 0.8);
+            border: 1px solid rgba(80, 150, 255, 0.2);
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .news-date {
+            color: #6db7ff;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .news-message {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .delete-button {
+            background: #a83232;
+        }
+
+        .delete-button:hover {
+            background: #d33d3d;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #8ec7ff;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="../index.html" class="back">← Zurück zu NoelSMP</a>
+
+    <h1>NOELSMP ADMIN</h1>
+
+    <!-- LOGIN -->
+    <div id="loginPanel" class="panel">
+
+        <h2>ADMIN LOGIN</h2>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="E-Mail"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Passwort"
+        >
+
+        <button onclick="login()">EINLOGGEN</button>
+
+        <div id="loginError" class="error"></div>
+
+    </div>
+
+
+    <!-- ADMIN BEREICH -->
+    <div id="adminPanel" class="hidden">
+
+        <div class="panel">
+
+            <button class="logout" onclick="logout()">
+                LOGOUT
+            </button>
+
+            <h2>NEUE NEWS</h2>
+
+            <input
+                type="date"
+                id="newsDate"
+            >
+
+            <textarea
+                id="newsMessage"
+                placeholder="Nachricht schreiben..."
+            ></textarea>
+
+            <button onclick="createNews()">
+                NEWS VERÖFFENTLICHEN
+            </button>
+
+            <div id="newsStatus"></div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h2>VORHANDENE NEWS</h2>
+
+            <div id="newsList">
+                Lade News...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+    // ==========================================
+    // SUPABASE
+    // ==========================================
+
+    const SUPABASE_URL =
+        "https://kinmvbfiyjpokerbbjjj.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
+
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
+
+    async function login() {
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        const errorBox =
+            document.getElementById("loginError");
+
+        errorBox.textContent = "";
+
+        if (!email || !password) {
+
+            errorBox.textContent =
+                "Bitte E-Mail und Passwort eingeben.";
+
+            return;
+        }
+
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        if (error) {
+
+            errorBox.textContent =
+                "Login fehlgeschlagen: " + error.message;
+
+            return;
+        }
+
+        showAdmin();
+    }
+
+
+    // ==========================================
+    // ADMIN ANZEIGEN
+    // ==========================================
+
+    function showAdmin() {
+
+        document
+            .getElementById("loginPanel")
+            .classList.add("hidden");
+
+        document
+            .getElementById("adminPanel")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("newsDate")
+            .value = new Date()
+                .toISOString()
+                .split("T")[0];
+
+        loadNews();
+    }
+
+
+    // ==========================================
+    // NEWS LADEN
+    // ==========================================
+
+    async function loadNews() {
+
+        const newsList =
+            document.getElementById("newsList");
+
+        newsList.innerHTML = "Lade News...";
+
+        const { data, error } =
+            await supabaseClient
+                .from("news")
+                .select("*")
+                .order("date", {
+                    ascending: false
+                })
+                .order("created_at", {
+                    ascending: false
+                });
+
+
+        if (error) {
+
+            newsList.innerHTML =
+                "<p class='error'>News konnten nicht geladen werden.</p>";
+
+            console.error(error);
+
+            return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            newsList.innerHTML =
+                "<p>Noch keine News vorhanden.</p>";
+
+            return;
+        }
+
+
+        newsList.innerHTML = "";
+
+
+        data.forEach(news => {
+
+            const item =
+                document.createElement("div");
+
+            item.className = "news-item";
+
+
+            const date =
+                new Date(news.date + "T00:00:00")
+                    .toLocaleDateString("de-DE", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric"
+                    });
+
+
+            item.innerHTML = `
+
+                <div class="news-date">
+                    ${date}
+                </div>
+
+                <div class="news-message">
+                    ${escapeHtml(news.message)}
+                </div>
+
+                <button
+                    class="delete-button"
+                    onclick="deleteNews(${news.id})"
+                >
+                    LÖSCHEN
+                </button>
+
+            `;
+
+
+            newsList.appendChild(item);
+
+        });
+
+    }
+
+
+    // ==========================================
+    // NEWS ERSTELLEN
+    // ==========================================
+
+    async function createNews() {
+
+        const message =
+            document
+                .getElementById("newsMessage")
+                .value
+                .trim();
+
+        const date =
+            document
+                .getElementById("newsDate")
+                .value;
+
+        const status =
+            document.getElementById("newsStatus");
+
+
+        status.textContent = "";
+        status.className = "";
+
+
+        if (!message) {
+
+            status.textContent =
+                "Bitte eine Nachricht eingeben.";
+
+            status.className = "error";
+
+            return;
+        }
+
+
+        if (!date) {
+
+            status.textContent =
+                "Bitte ein Datum auswählen.";
+
+            status.className = "error";
+
+            return;
+        }
+
+
+        const { error } =
+            await supabaseClient
+                .from("news")
+                .insert([
+                    {
+                        message: message,
+                        date: date
+                    }
+                ]);
+
+
+        if (error) {
+
+            status.textContent =
+                "Fehler: " + error.message;
+
+            status.className = "error";
+
+            console.error(error);
+
+            return;
+        }
+
+
+        document
+            .getElementById("newsMessage")
+            .value = "";
+
+
+        status.textContent =
+            "News erfolgreich veröffentlicht!";
+
+        status.className = "success";
+
+
+        loadNews();
+
+    }
+
+
+    // ==========================================
+    // NEWS LÖSCHEN
+    // ==========================================
+
+    async function deleteNews(id) {
+
+        const confirmDelete =
+            confirm(
+                "Möchtest du diese News wirklich löschen?"
+            );
+
+
+        if (!confirmDelete) {
+            return;
+        }
+
+
+        const { error } =
+            await supabaseClient
+                .from("news")
+                .delete()
+                .eq("id", id);
+
+
+        if (error) {
+
+            alert(
+                "Fehler beim Löschen: " +
+                error.message
+            );
+
+            console.error(error);
+
+            return;
+        }
+
+
+        loadNews();
+
+    }
+
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    async function logout() {
+
+        await supabaseClient.auth.signOut();
+
+        location.reload();
+
+    }
+
+
+    // ==========================================
+    // HTML SICHER MACHEN
+    // ==========================================
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+
+    // ==========================================
+    // SESSION PRÜFEN
+    // ==========================================
+
+    async function checkSession() {
+
+        const { data } =
+            await supabaseClient.auth.getSession();
+
+
+        if (data.session) {
+
+            showAdmin();
+
+        }
+
+    }
+
+
+    checkSession();
+
+</script>
+
+</body>
+</html>

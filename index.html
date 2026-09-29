@@ -390,6 +390,71 @@ transform: translateY(-3px);
 
 }
 
+/* Logo IP Copy */
+.logo-copy {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.logo-copy img {
+    width: 300px;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+.logo-copy:hover img {
+    transform: scale(1.03);
+}
+
+.logo-copy-hint {
+    margin-top: 12px;
+    font-size: 7px;
+    color: #63b5ff;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    pointer-events: none;
+}
+
+.logo-copy:hover .logo-copy-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logo-copy-success {
+    margin-top: 12px;
+    font-size: 7px;
+    color: #63ff9b;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    pointer-events: none;
+}
+
+.logo-copy-success.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .logo-copy img {
+        width: 230px;
+    }
+
+    .logo-copy-hint,
+    .logo-copy-success {
+        font-size: 6px;
+    }
+}
+
+
 
     </style>
 
@@ -403,10 +468,22 @@ transform: translateY(-3px);
 
         <h1>WILLKOMMEN AUF DEM NOELSMP</h1>
 
-        <img
-            src="NoelSMPL.png"
-            alt="NoelSMP"
-        >
+
+<div class="logo-copy" onclick="copyServerIP()">
+    <img
+        src="NoelSMPL.png"
+        alt="NoelSMP"
+    >
+
+    <span class="logo-copy-hint">
+        KLICKE HIER, UM DIE IP ZU KOPIEREN
+    </span>
+
+    <span class="logo-copy-success" id="copySuccess">
+        IP KOPIERT!
+    </span>
+</div>
+
 
     </section>
 
@@ -484,45 +561,7 @@ transform: translateY(-3px);
 
 </div>
 
-<div class="news-grid">
-
-    <article class="news-card">
-
-        <span class="news-date">
-            29. SEPTEMBER 2026
-        </span>
-
-        <p>
-            FREE Booster-Rang? Jeder Spieler der vor dem 1. November 2026 dem Server beitritt erhält kostenlos für einen Monat den BOOSTER-Rang, mit dem man viele nützliche Vorteile hat!
-        </p>
-
-    </article>
-
-    <article class="news-card">
-
-        <span class="news-date">
-            29. SEPTEMBER 2026
-        </span>
-
-        <p>
-            Der aktivste Spieler der Woche?! W_Mellow hat gerade mal fast 6 Stunden Playtime und dominiert die BalTop mit 7k Money! Shoutouts gehen raus!
-        </p>
-
-    </article>
-
-    <article class="news-card">
-
-        <span class="news-date">
-            28. SEPTEMBER 2026
-        </span>
-
-        <p>
-            NEUES Home-Plugin! Ab heute benutzen wir BHomes für das Home-Plugin, auch wenn das Plugin nicht 100% perfekt ist suchen wir weiterhin nach einem besseren!
-        </p>
-
-    </article>
-
-</div>
+<div class="news-grid" id="homeNewsGrid"></div>
 
 </section>
 
@@ -627,6 +666,94 @@ transform: translateY(-3px);
 
 </footer>
 
+<script>
+function copyServerIP() {
+    navigator.clipboard.writeText("play.noelsmp.net").then(() => {
+        const success = document.getElementById("copySuccess");
 
+        success.classList.add("show");
+
+        setTimeout(() => {
+            success.classList.remove("show");
+        }, 2000);
+    });
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://kinmvbfiyjpokerbbjjj.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+async function loadHomeNews() {
+
+    const newsGrid = document.getElementById("homeNewsGrid");
+
+    if (!newsGrid) return;
+
+    const { data, error } = await supabaseClient
+        .from("news")
+        .select("*")
+        .order("date", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(3);
+
+    if (error) {
+        console.error("News-Fehler:", error);
+
+        newsGrid.innerHTML = `
+            <article class="news-card">
+                <p>NEWS KONNTEN NICHT GELADEN WERDEN.</p>
+            </article>
+        `;
+
+        return;
+    }
+
+    newsGrid.innerHTML = "";
+
+    data.forEach(news => {
+
+        const article = document.createElement("article");
+
+        article.className = "news-card";
+
+        const date = new Date(news.date + "T00:00:00")
+            .toLocaleDateString("de-DE", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
+
+        article.innerHTML = `
+            <span class="news-date">
+                ${date}
+            </span>
+
+            <p>
+                ${escapeHtml(news.message)}
+            </p>
+        `;
+
+        newsGrid.appendChild(article);
+    });
+}
+
+function escapeHtml(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+loadHomeNews();
+</script>
 </body>
 </html>

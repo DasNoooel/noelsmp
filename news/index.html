@@ -320,57 +320,7 @@
 
         </div>
 
-        <div class="news-grid">
-
-            <article class="news-card">
-
-                <span class="news-date">
-                    28. SEPTEMBER 2026
-                </span>
-
-                <p>
-                    NEUES Shop UND Sell Update: Benutzt nun /shop um den Shop zuöffnen und benutzt /sellgui um das Sell-Menü zu öffnen. Wir haben die Plugins gewechselt da man auf dem vorherigen nur wenige Items verkaufen konnte, aber generell sind die Commands gleich geblieben!
-                </p>
-
-            </article>
-
-            <article class="news-card">
-
-                <span class="news-date">
-                    28. SEPTEMBER 2026
-                </span>
-
-                <p>
-                    NEUES Home-Plugin! Ab heute benutzen wir BHomes für das Home-Plugin, auch wenn das Plugin nicht 100% perfekt ist suchen wir weiterhin nach einem besseren!
-                </p>
-
-            </article>
-
-            <article class="news-card">
-
-                <span class="news-date">
-                    29. SEPTEMBER 2026
-                </span>
-
-                <p>
-                    Der aktivste Spieler der Woche?! W_Mellow hat gerade mal fast 6 Stunden Playtime und dominiert die BalTop mit 7k Money! Shoutouts gehen raus!
-                </p>
-
-            </article>
-
-            <article class="news-card">
-
-                <span class="news-date">
-                    29. SEPTEMBER 2026
-                </span>
-
-                <p>
-                    FREE Booster-Rang? Jeder Spieler der vor dem 1. November 2026 dem Server beitritt erhält kostenlos für einen Monat den BOOSTER-Rang, mit dem man viele nützliche Vorteile hat!
-                </p>
-
-            </article>
-
-        </div>
+        <div class="news-grid" id="newsGrid"></div>
 
     </section>
 
@@ -381,7 +331,74 @@
     </footer>
 
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://kinmvbfiyjpokerbbjjj.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+async function loadNews() {
+
+    const newsGrid = document.getElementById("newsGrid");
+
+    const { data, error } = await supabaseClient
+        .from("news")
+        .select("*")
+        .order("date", { ascending: false })
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+
+        newsGrid.innerHTML = `
+            <article class="news-card">
+                <p>NEWS KONNTEN NICHT GELADEN WERDEN.</p>
+            </article>
+        `;
+
+        return;
+    }
+
+    newsGrid.innerHTML = "";
+
+    data.forEach(news => {
+
+        const article = document.createElement("article");
+
+        article.className = "news-card";
+
+        const date = new Date(news.date + "T00:00:00")
+            .toLocaleDateString("de-DE", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
+
+        article.innerHTML = `
+            <span class="news-date">${date}</span>
+            <p>${escapeHtml(news.message)}</p>
+        `;
+
+        newsGrid.appendChild(article);
+    });
+}
+
+function escapeHtml(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+loadNews();
+</script>
 </body>
 
 </html>
