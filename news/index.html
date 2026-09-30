@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="de">
@@ -43,6 +44,10 @@
         padding: 25px 20px 50px;
     }
 
+    /* ==========================================
+       NAVIGATION
+    ========================================== */
+
     .top-nav {
         display: flex;
         align-items: center;
@@ -78,15 +83,220 @@
         color: #58d0c5;
     }
 
-    .nav-logo {
-        width: clamp(70px, 9vw, 105px);
-        height: auto;
-        transition: 0.25s ease;
+    /* ==========================================
+       ACCOUNT
+    ========================================== */
+
+    .account-panel {
+        margin-bottom: 25px;
+        padding: 20px;
+        border-radius: 20px;
+        background: rgba(10, 20, 40, 0.55);
+        border: 1px solid rgba(99, 181, 255, 0.15);
+        backdrop-filter: blur(12px);
     }
 
-    .nav-logo:hover {
-        transform: scale(1.05);
+    .account-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
     }
+
+    .account-title {
+        color: #63b5ff;
+        font-size: 9px;
+    }
+
+    .account-status {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 7px;
+    }
+
+    .account-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .account-button {
+        border: 1px solid rgba(99, 181, 255, 0.25);
+        border-radius: 10px;
+        padding: 12px 15px;
+        background: rgba(99, 181, 255, 0.08);
+        color: #63b5ff;
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .account-button:hover {
+        background: rgba(99, 181, 255, 0.18);
+        border-color: rgba(99, 181, 255, 0.55);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .logout-button {
+        color: #ff6b8a;
+        border-color: rgba(255, 107, 138, 0.25);
+    }
+
+    .logout-button:hover {
+        background: rgba(255, 107, 138, 0.12);
+        border-color: rgba(255, 107, 138, 0.5);
+    }
+
+    .welcome {
+        color: white;
+        font-size: 8px;
+    }
+
+    .welcome span {
+        color: #63b5ff;
+    }
+
+    /* ==========================================
+       ACCOUNT MODAL
+    ========================================== */
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        z-index: 9999;
+    }
+
+    .modal-overlay.active {
+        display: flex;
+    }
+
+    .account-modal {
+        width: 100%;
+        max-width: 460px;
+        padding: 30px;
+        border-radius: 20px;
+        background:
+            radial-gradient(circle at top, #142d55 0%, #071426 60%, #030914 100%);
+        border: 1px solid rgba(99, 181, 255, 0.3);
+        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+    }
+
+    .modal-title {
+        margin: 0;
+        color: #63b5ff;
+        font-size: 13px;
+    }
+
+    .close-modal {
+        border: none;
+        background: transparent;
+        color: #ffffff;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .account-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .account-form label {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 7px;
+    }
+
+    .account-form input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 9px;
+        border: 1px solid #315b91;
+        background: #071426;
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .account-form input:focus {
+        border-color: #63b5ff;
+        box-shadow: 0 0 0 2px rgba(99, 181, 255, 0.08);
+    }
+
+    .form-button {
+        margin-top: 8px;
+        padding: 14px;
+        border: none;
+        border-radius: 9px;
+        background: #1769d1;
+        color: white;
+        font-family: "Press Start 2P", monospace;
+        font-size: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .form-button:hover {
+        background: #2582f2;
+        transform: translateY(-2px);
+    }
+
+    .form-switch {
+        margin-top: 18px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 7px;
+        line-height: 2;
+    }
+
+    .form-switch button {
+        border: none;
+        background: transparent;
+        color: #63b5ff;
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        cursor: pointer;
+    }
+
+    .form-switch button:hover {
+        color: white;
+    }
+
+    .form-error {
+        min-height: 15px;
+        color: #ff6b6b;
+        font-size: 7px;
+        line-height: 1.8;
+    }
+
+    .form-success {
+        color: #6dff9a;
+        font-size: 7px;
+        line-height: 1.8;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* ==========================================
+       NEWS
+    ========================================== */
 
     .news-page {
         padding: 30px;
@@ -116,6 +326,12 @@
         margin: 0;
         color: #ffffff;
         font-size: 25px;
+    }
+
+    .header-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     .all-news-button {
@@ -200,8 +416,25 @@
     .news-card p {
         margin: 0;
         color: #eeeeee;
-        font-size: 10px;
-        line-height: 2;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .news-card p strong {
+        font-weight: bold;
+    }
+
+    .news-card p em {
+        font-style: italic;
+    }
+
+    .news-card p u {
+        text-decoration: underline;
+    }
+
+    .news-card p s {
+        text-decoration: line-through;
     }
 
     footer {
@@ -236,8 +469,17 @@
             font-size: 7px;
         }
 
-        .nav-logo {
-            width: 65px;
+        .account-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .account-buttons {
+            width: 100%;
+        }
+
+        .account-button {
+            flex: 1;
         }
 
         .news-page {
@@ -254,8 +496,12 @@
             font-size: 19px;
         }
 
-        .all-news-button {
+        .header-buttons {
             width: 100%;
+        }
+
+        .all-news-button {
+            flex: 1;
         }
 
         .news-card {
@@ -263,24 +509,15 @@
             padding-top: 48px;
         }
 
-        .news-card p {
-            font-size: 8px;
-            line-height: 2.1;
-        }
-
         .news-date {
             font-size: 6px;
         }
 
+        .account-modal {
+            padding: 22px;
+        }
+
     }
-
-    .nav-admin {
-    color: #ff5c8a;
-}
-
-.nav-admin:hover {
-    color: #ffffff;
-}
 
 </style>
 
@@ -289,6 +526,10 @@
 <body>
 
 <main>
+
+    <!-- ==========================================
+         NAVIGATION
+    ========================================== -->
 
     <nav class="top-nav">
 
@@ -304,9 +545,84 @@
             RANKS
         </a>
 
-    
-
     </nav>
+
+
+    <!-- ==========================================
+         ACCOUNT
+    ========================================== -->
+
+    <section class="account-panel">
+
+        <div class="account-header">
+
+            <div>
+
+                <div class="account-title">
+                    NOELSMP ACCOUNT
+                </div>
+
+                <div
+                    id="accountStatus"
+                    class="account-status"
+                >
+                    Nicht eingeloggt
+                </div>
+
+            </div>
+
+
+            <div
+                id="loggedOutButtons"
+                class="account-buttons"
+            >
+
+                <button
+                    class="account-button"
+                    onclick="openLogin()"
+                >
+                    EINLOGGEN
+                </button>
+
+                <button
+                    class="account-button"
+                    onclick="openRegister()"
+                >
+                    REGISTRIEREN
+                </button>
+
+            </div>
+
+
+            <div
+                id="loggedInButtons"
+                class="account-buttons hidden"
+            >
+
+                <div
+                    id="welcomeText"
+                    class="welcome"
+                >
+                    Willkommen, <span>User</span>
+                </div>
+
+                <button
+                    class="account-button logout-button"
+                    onclick="logout()"
+                >
+                    LOGOUT
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         NEWS
+    ========================================== -->
 
     <section class="news-page">
 
@@ -326,97 +642,874 @@
 
             <div class="header-buttons">
 
-    <a href="/index.html" class="all-news-button">
-        ← STARTSEITE
-    </a>
+                <a
+                    href="/index.html"
+                    class="all-news-button"
+                >
+                    ← STARTSEITE
+                </a>
 
-    <a href="/admin/" class="all-news-button">
-        ＋ NEU
-    </a>
+                <a
+                    href="/admin/"
+                    class="all-news-button"
+                >
+                    ＋ NEU
+                </a>
 
-</div>
+            </div>
 
         </div>
 
-        <div class="news-grid" id="newsGrid"></div>
+
+        <div
+            class="news-grid"
+            id="newsGrid"
+        ></div>
 
     </section>
 
+
     <footer>
+
         developed by dasnoooel
+
         <br>
+
         © 2026 NoelSMP. All Rights Reserved.
+
     </footer>
 
 </main>
+
+
+<!-- ==========================================
+     LOGIN / REGISTRATION MODAL
+========================================== -->
+
+<div
+    id="accountModal"
+    class="modal-overlay"
+>
+
+    <div class="account-modal">
+
+        <div class="modal-top">
+
+            <h2
+                id="modalTitle"
+                class="modal-title"
+            >
+                EINLOGGEN
+            </h2>
+
+            <button
+                class="close-modal"
+                onclick="closeAccountModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form
+            id="loginForm"
+            class="account-form"
+            onsubmit="login(event)"
+        >
+
+            <label>
+                E-MAIL
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="E-Mail"
+                autocomplete="email"
+                required
+            >
+
+
+            <label>
+                PASSWORT
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Passwort"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <div
+                id="loginError"
+                class="form-error"
+            ></div>
+
+
+            <button
+                type="submit"
+                class="form-button"
+            >
+                EINLOGGEN
+            </button>
+
+        </form>
+
+
+        <!-- REGISTER -->
+
+        <form
+            id="registerForm"
+            class="account-form hidden"
+            onsubmit="register(event)"
+        >
+
+            <label>
+                USERNAME
+            </label>
+
+            <input
+                type="text"
+                id="registerUsername"
+                placeholder="z.B. Noel_XD"
+                minlength="3"
+                maxlength="16"
+                autocomplete="username"
+                required
+            >
+
+
+            <label>
+                E-MAIL
+            </label>
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="E-Mail"
+                autocomplete="email"
+                required
+            >
+
+
+            <label>
+                PASSWORT
+            </label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Passwort"
+                minlength="8"
+                autocomplete="new-password"
+                required
+            >
+
+
+            <label>
+                PASSWORT WIEDERHOLEN
+            </label>
+
+            <input
+                type="password"
+                id="registerPasswordConfirm"
+                placeholder="Passwort wiederholen"
+                minlength="8"
+                autocomplete="new-password"
+                required
+            >
+
+
+            <div
+                id="registerError"
+                class="form-error"
+            ></div>
+
+
+            <div
+                id="registerSuccess"
+                class="form-success"
+            ></div>
+
+
+            <button
+                type="submit"
+                class="form-button"
+            >
+                ACCOUNT ERSTELLEN
+            </button>
+
+        </form>
+
+
+        <div class="form-switch">
+
+            <span id="switchText">
+                Noch keinen Account?
+            </span>
+
+            <button
+                id="switchButton"
+                onclick="switchAuthMode()"
+            >
+                REGISTRIEREN
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     SUPABASE
+========================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL = "https://kinmvbfiyjpokerbbjjj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+<script>
+
+const SUPABASE_URL =
+    "https://kinmvbfiyjpokerbbjjj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+let authMode = "login";
+
+
+/* ==========================================
+   ACCOUNT MODAL
+========================================== */
+
+function openLogin() {
+
+    authMode = "login";
+
+    updateAuthModal();
+
+    document
+        .getElementById("accountModal")
+        .classList.add("active");
+
+}
+
+
+function openRegister() {
+
+    authMode = "register";
+
+    updateAuthModal();
+
+    document
+        .getElementById("accountModal")
+        .classList.add("active");
+
+}
+
+
+function closeAccountModal() {
+
+    document
+        .getElementById("accountModal")
+        .classList.remove("active");
+
+}
+
+
+function switchAuthMode() {
+
+    authMode =
+        authMode === "login"
+            ? "register"
+            : "login";
+
+    updateAuthModal();
+
+}
+
+
+function updateAuthModal() {
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    const modalTitle =
+        document.getElementById("modalTitle");
+
+    const switchText =
+        document.getElementById("switchText");
+
+    const switchButton =
+        document.getElementById("switchButton");
+
+
+    document.getElementById("loginError").textContent = "";
+
+    document.getElementById("registerError").textContent = "";
+
+    document.getElementById("registerSuccess").textContent = "";
+
+
+    if (authMode === "login") {
+
+        loginForm.classList.remove("hidden");
+
+        registerForm.classList.add("hidden");
+
+        modalTitle.textContent =
+            "EINLOGGEN";
+
+        switchText.textContent =
+            "Noch keinen Account?";
+
+        switchButton.textContent =
+            "REGISTRIEREN";
+
+    } else {
+
+        loginForm.classList.add("hidden");
+
+        registerForm.classList.remove("hidden");
+
+        modalTitle.textContent =
+            "REGISTRIEREN";
+
+        switchText.textContent =
+            "Bereits einen Account?";
+
+        switchButton.textContent =
+            "EINLOGGEN";
+
+    }
+
+}
+
+
+/* ==========================================
+   USERNAME VALIDIERUNG
+========================================== */
+
+function isValidUsername(username) {
+
+    return /^[a-zA-Z0-9_]{3,16}$/.test(username);
+
+}
+
+
+/* ==========================================
+   REGISTRIEREN
+========================================== */
+
+async function register(event) {
+
+    event.preventDefault();
+
+
+    const username =
+        document
+            .getElementById("registerUsername")
+            .value
+            .trim();
+
+    const email =
+        document
+            .getElementById("registerEmail")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("registerPassword")
+            .value;
+
+    const passwordConfirm =
+        document
+            .getElementById("registerPasswordConfirm")
+            .value;
+
+
+    const errorBox =
+        document.getElementById("registerError");
+
+    const successBox =
+        document.getElementById("registerSuccess");
+
+
+    errorBox.textContent = "";
+
+    successBox.textContent = "";
+
+
+    /* USERNAME */
+
+    if (!isValidUsername(username)) {
+
+        errorBox.textContent =
+            "Username: 3–16 Zeichen, nur Buchstaben, Zahlen und _.";
+
+        return;
+
+    }
+
+
+    /* PASSWORT */
+
+    if (password.length < 8) {
+
+        errorBox.textContent =
+            "Das Passwort muss mindestens 8 Zeichen haben.";
+
+        return;
+
+    }
+
+
+    if (password !== passwordConfirm) {
+
+        errorBox.textContent =
+            "Die Passwörter stimmen nicht überein.";
+
+        return;
+
+    }
+
+
+    /*
+       Prüfen, ob Username bereits existiert.
+       Wir lesen nur den Username,
+       niemals Passwort oder E-Mail.
+    */
+
+    const { data: existingProfile, error: usernameError } =
+        await supabaseClient
+            .from("profiles")
+            .select("id")
+            .eq("username", username)
+            .maybeSingle();
+
+
+    if (usernameError) {
+
+        console.error(usernameError);
+
+        errorBox.textContent =
+            "Der Username konnte nicht überprüft werden.";
+
+        return;
+
+    }
+
+
+    if (existingProfile) {
+
+        errorBox.textContent =
+            "Dieser Username ist bereits vergeben.";
+
+        return;
+
+    }
+
+
+    /* ACCOUNT ERSTELLEN */
+
+    const { data, error } =
+        await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+                data: {
+                    username: username
+                }
+
+            }
+
+        });
+
+
+    if (error) {
+
+        console.error(error);
+
+        errorBox.textContent =
+            "Registrierung fehlgeschlagen: " +
+            error.message;
+
+        return;
+
+    }
+
+
+    /*
+       Falls E-Mail-Bestätigung aktiviert ist
+    */
+
+    if (data.user && !data.session) {
+
+        successBox.textContent =
+            "Account erstellt! Bitte bestätige deine E-Mail-Adresse.";
+
+        document
+            .getElementById("registerForm")
+            .reset();
+
+        return;
+
+    }
+
+
+    successBox.textContent =
+        "Account erfolgreich erstellt!";
+
+
+    document
+        .getElementById("registerForm")
+        .reset();
+
+
+    setTimeout(() => {
+
+        closeAccountModal();
+
+        loadCurrentUser();
+
+    }, 1200);
+
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+async function login(event) {
+
+    event.preventDefault();
+
+
+    const email =
+        document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("loginPassword")
+            .value;
+
+
+    const errorBox =
+        document.getElementById("loginError");
+
+
+    errorBox.textContent = "";
+
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+    if (error) {
+
+        console.error(error);
+
+        errorBox.textContent =
+            "Login fehlgeschlagen: " +
+            error.message;
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("loginForm")
+        .reset();
+
+
+    closeAccountModal();
+
+    loadCurrentUser();
+
+}
+
+
+/* ==========================================
+   USER LADEN
+========================================== */
+
+async function loadCurrentUser() {
+
+    const {
+        data: {
+            user
+        }
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    const loggedOutButtons =
+        document.getElementById("loggedOutButtons");
+
+    const loggedInButtons =
+        document.getElementById("loggedInButtons");
+
+    const accountStatus =
+        document.getElementById("accountStatus");
+
+    const welcomeText =
+        document.getElementById("welcomeText");
+
+
+    if (!user) {
+
+        loggedOutButtons
+            .classList.remove("hidden");
+
+        loggedInButtons
+            .classList.add("hidden");
+
+        accountStatus.textContent =
+            "Nicht eingeloggt";
+
+        return;
+
+    }
+
+
+    const {
+        data: profile,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("username")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+    if (error) {
+
+        console.error(error);
+
+    }
+
+
+    const username =
+        profile?.username ||
+        "NoelSMP User";
+
+
+    loggedOutButtons
+        .classList.add("hidden");
+
+    loggedInButtons
+        .classList.remove("hidden");
+
+
+    accountStatus.textContent =
+        "Eingeloggt";
+
+
+    welcomeText.innerHTML =
+        `Willkommen, <span>${escapeHtml(username)}</span>!`;
+
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+async function logout() {
+
+    const { error } =
+        await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        console.error(error);
+
+        return;
+
+    }
+
+
+    loadCurrentUser();
+
+}
+
+
+/* ==========================================
+   NEWS LADEN
+========================================== */
 
 async function loadNews() {
 
-    const newsGrid = document.getElementById("newsGrid");
+    const newsGrid =
+        document.getElementById("newsGrid");
 
-    const { data, error } = await supabaseClient
-        .from("news")
-        .select("*")
-        .order("date", { ascending: false })
-        .order("created_at", { ascending: false });
+
+    const { data, error } =
+        await supabaseClient
+            .from("news")
+            .select("*")
+            .order("date", {
+                ascending: false
+            })
+            .order("created_at", {
+                ascending: false
+            });
+
 
     if (error) {
+
         console.error(error);
 
         newsGrid.innerHTML = `
+
             <article class="news-card">
-                <p>NEWS KONNTEN NICHT GELADEN WERDEN.</p>
+
+                <p>
+                    NEWS KONNTEN NICHT GELADEN WERDEN.
+                </p>
+
             </article>
+
         `;
 
         return;
+
     }
+
 
     newsGrid.innerHTML = "";
 
+
     data.forEach(news => {
 
-        const article = document.createElement("article");
+        const article =
+            document.createElement("article");
 
-        article.className = "news-card";
 
-        const date = new Date(news.date + "T00:00:00")
-            .toLocaleDateString("de-DE", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-            });
+        article.className =
+            "news-card";
+
+
+        const date =
+            new Date(
+                news.date + "T00:00:00"
+            )
+            .toLocaleDateString(
+                "de-DE",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+
+        /*
+           Für den Moment wird die bestehende
+           Textanzeige beibehalten.
+           Rich-Text-Ausgabe bauen wir zusammen
+           mit den Kommentaren ein.
+        */
 
         article.innerHTML = `
-            <span class="news-date">${date}</span>
-            <p>${escapeHtml(news.message)}</p>
+
+            <span class="news-date">
+                ${escapeHtml(date)}
+            </span>
+
+            <p>
+                ${escapeHtml(news.message)}
+            </p>
+
         `;
 
+
         newsGrid.appendChild(article);
+
     });
+
 }
+
+
+/* ==========================================
+   HTML SICHER MACHEN
+========================================== */
 
 function escapeHtml(text) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
-    div.textContent = text;
+
+    div.textContent =
+        text ?? "";
+
 
     return div.innerHTML;
+
 }
 
+
+/* ==========================================
+   SESSION ÜBERWACHEN
+========================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
+
+        loadCurrentUser();
+
+    }
+);
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadCurrentUser();
+
 loadNews();
+
 </script>
+
 </body>
 
 </html>

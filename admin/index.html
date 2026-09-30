@@ -53,8 +53,7 @@
             margin-top: 0;
         }
 
-        input,
-        textarea {
+        input {
             width: 100%;
             background: #071426;
             border: 1px solid #315b91;
@@ -66,17 +65,111 @@
             margin-bottom: 15px;
         }
 
-        input:focus,
-        textarea:focus {
+        input:focus {
             border-color: #6db7ff;
         }
 
-        textarea {
-            min-height: 130px;
-            resize: vertical;
+        .editor-wrapper {
+            margin-bottom: 15px;
         }
 
-        button {
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 10px;
+            background: #0b1c34;
+            border: 1px solid #315b91;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .toolbar button {
+            min-width: 40px;
+            height: 38px;
+            padding: 7px 11px;
+            border: 1px solid #315b91;
+            border-radius: 6px;
+            background: #102a4d;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .toolbar button:hover {
+            background: #1769d1;
+            border-color: #6db7ff;
+        }
+
+        .toolbar .bold {
+            font-weight: 900;
+        }
+
+        .toolbar .italic {
+            font-style: italic;
+        }
+
+        .toolbar .underline {
+            text-decoration: underline;
+        }
+
+        .toolbar .strike {
+            text-decoration: line-through;
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            background: #315b91;
+            margin: 2px 4px;
+        }
+
+        .color-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 6px;
+            color: #b9d9ff;
+            font-size: 13px;
+        }
+
+        .color-picker {
+            width: 38px !important;
+            height: 32px;
+            padding: 2px !important;
+            margin: 0 !important;
+            border: 1px solid #315b91;
+            border-radius: 5px;
+            background: #071426;
+            cursor: pointer;
+        }
+
+        #newsMessage {
+            width: 100%;
+            min-height: 160px;
+            padding: 14px;
+            background: #071426;
+            border: 1px solid #315b91;
+            border-radius: 0 0 8px 8px;
+            color: white;
+            font-size: 15px;
+            line-height: 1.6;
+            outline: none;
+            overflow-y: auto;
+        }
+
+        #newsMessage:focus {
+            border-color: #6db7ff;
+        }
+
+        #newsMessage:empty::before {
+            content: attr(data-placeholder);
+            color: #6d7f96;
+            pointer-events: none;
+        }
+
+        .main-button {
             border: none;
             border-radius: 8px;
             padding: 13px 20px;
@@ -87,7 +180,7 @@
             transition: 0.2s;
         }
 
-        button:hover {
+        .main-button:hover {
             background: #2582f2;
             transform: translateY(-1px);
         }
@@ -132,10 +225,34 @@
         .news-message {
             line-height: 1.6;
             margin-bottom: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .news-message strong {
+            font-weight: bold;
+        }
+
+        .news-message em {
+            font-style: italic;
+        }
+
+        .news-message u {
+            text-decoration: underline;
+        }
+
+        .news-message s {
+            text-decoration: line-through;
         }
 
         .delete-button {
             background: #a83232;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .delete-button:hover {
@@ -180,7 +297,9 @@
             placeholder="Passwort"
         >
 
-        <button onclick="login()">EINLOGGEN</button>
+        <button class="main-button" onclick="login()">
+            EINLOGGEN
+        </button>
 
         <div id="loginError" class="error"></div>
 
@@ -192,7 +311,7 @@
 
         <div class="panel">
 
-            <button class="logout" onclick="logout()">
+            <button class="main-button logout" onclick="logout()">
                 LOGOUT
             </button>
 
@@ -203,12 +322,133 @@
                 id="newsDate"
             >
 
-            <textarea
-                id="newsMessage"
-                placeholder="Nachricht schreiben..."
-            ></textarea>
+            <!-- RICH TEXT EDITOR -->
+            <div class="editor-wrapper">
 
-            <button onclick="createNews()">
+                <div class="toolbar">
+
+                    <button
+                        type="button"
+                        class="bold"
+                        onclick="formatText('bold')"
+                        title="Fett"
+                    >
+                        B
+                    </button>
+
+                    <button
+                        type="button"
+                        class="italic"
+                        onclick="formatText('italic')"
+                        title="Kursiv"
+                    >
+                        I
+                    </button>
+
+                    <button
+                        type="button"
+                        class="underline"
+                        onclick="formatText('underline')"
+                        title="Unterstrichen"
+                    >
+                        U
+                    </button>
+
+                    <button
+                        type="button"
+                        class="strike"
+                        onclick="formatText('strikeThrough')"
+                        title="Durchgestrichen"
+                    >
+                        S
+                    </button>
+
+                    <div class="toolbar-separator"></div>
+
+                    <label class="color-label">
+                        Farbe:
+                        <input
+                            type="color"
+                            id="textColor"
+                            class="color-picker"
+                            value="#ffffff"
+                            onchange="changeTextColor(this.value)"
+                            title="Textfarbe"
+                        >
+                    </label>
+
+                    <button
+                        type="button"
+                        onclick="changeTextColor('#ff5555')"
+                        title="Rot"
+                    >
+                        🔴
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="changeTextColor('#55ff55')"
+                        title="Grün"
+                    >
+                        🟢
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="changeTextColor('#5555ff')"
+                        title="Blau"
+                    >
+                        🔵
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="changeTextColor('#ffff55')"
+                        title="Gelb"
+                    >
+                        🟡
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="changeTextColor('#ff55ff')"
+                        title="Pink"
+                    >
+                        🟣
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="changeTextColor('#55ffff')"
+                        title="Cyan"
+                    >
+                        🔵
+                    </button>
+
+                    <div class="toolbar-separator"></div>
+
+                    <button
+                        type="button"
+                        onclick="clearFormatting()"
+                        title="Formatierung entfernen"
+                    >
+                        Tx
+                    </button>
+
+                </div>
+
+                <div
+                    id="newsMessage"
+                    contenteditable="true"
+                    data-placeholder="Nachricht schreiben..."
+                ></div>
+
+            </div>
+
+            <button
+                class="main-button"
+                onclick="createNews()"
+            >
                 NEWS VERÖFFENTLICHEN
             </button>
 
@@ -235,6 +475,10 @@
 <!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- DOMPURIFY -->
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+
+
 <script>
 
     // ==========================================
@@ -247,11 +491,64 @@
     const SUPABASE_ANON_KEY =
         "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
 
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
 
-    const supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
+
+    // ==========================================
+    // RICH TEXT EDITOR
+    // ==========================================
+
+    function focusEditor() {
+
+        const editor =
+            document.getElementById("newsMessage");
+
+        editor.focus();
+
+    }
+
+
+    function formatText(command) {
+
+        focusEditor();
+
+        document.execCommand(
+            command,
+            false,
+            null
+        );
+
+    }
+
+
+    function changeTextColor(color) {
+
+        focusEditor();
+
+        document.execCommand(
+            "foreColor",
+            false,
+            color
+        );
+
+    }
+
+
+    function clearFormatting() {
+
+        focusEditor();
+
+        document.execCommand(
+            "removeFormat",
+            false,
+            null
+        );
+
+    }
 
 
     // ==========================================
@@ -288,12 +585,22 @@
         if (error) {
 
             errorBox.textContent =
-                "Login fehlgeschlagen: " + error.message;
+                "Login fehlgeschlagen: " +
+                error.message;
+
+            return;
+        }
+
+        if (!data.session) {
+
+            errorBox.textContent =
+                "Login fehlgeschlagen: Keine Session erhalten.";
 
             return;
         }
 
         showAdmin();
+
     }
 
 
@@ -313,11 +620,13 @@
 
         document
             .getElementById("newsDate")
-            .value = new Date()
+            .value =
+            new Date()
                 .toISOString()
                 .split("T")[0];
 
         loadNews();
+
     }
 
 
@@ -330,7 +639,8 @@
         const newsList =
             document.getElementById("newsList");
 
-        newsList.innerHTML = "Lade News...";
+        newsList.innerHTML =
+            "Lade News...";
 
         const { data, error } =
             await supabaseClient
@@ -343,7 +653,6 @@
                     ascending: false
                 });
 
-
         if (error) {
 
             newsList.innerHTML =
@@ -354,7 +663,6 @@
             return;
         }
 
-
         if (!data || data.length === 0) {
 
             newsList.innerHTML =
@@ -363,26 +671,53 @@
             return;
         }
 
-
         newsList.innerHTML = "";
-
 
         data.forEach(news => {
 
             const item =
                 document.createElement("div");
 
-            item.className = "news-item";
-
+            item.className =
+                "news-item";
 
             const date =
-                new Date(news.date + "T00:00:00")
-                    .toLocaleDateString("de-DE", {
+                new Date(
+                    news.date + "T00:00:00"
+                ).toLocaleDateString(
+                    "de-DE",
+                    {
                         day: "2-digit",
                         month: "2-digit",
                         year: "numeric"
-                    });
+                    }
+                );
 
+            const safeMessage =
+                DOMPurify.sanitize(
+                    news.message || "",
+                    {
+                        ALLOWED_TAGS: [
+                            "b",
+                            "strong",
+                            "i",
+                            "em",
+                            "u",
+                            "s",
+                            "strike",
+                            "span",
+                            "br"
+                        ],
+
+                        ALLOWED_ATTR: [
+                            "style"
+                        ],
+
+                        ALLOWED_STYLES: [
+                            "color"
+                        ]
+                    }
+                );
 
             item.innerHTML = `
 
@@ -391,7 +726,7 @@
                 </div>
 
                 <div class="news-message">
-                    ${escapeHtml(news.message)}
+                    ${safeMessage}
                 </div>
 
                 <button
@@ -402,7 +737,6 @@
                 </button>
 
             `;
-
 
             newsList.appendChild(item);
 
@@ -417,11 +751,14 @@
 
     async function createNews() {
 
+        const editor =
+            document.getElementById("newsMessage");
+
         const message =
-            document
-                .getElementById("newsMessage")
-                .value
-                .trim();
+            editor.innerHTML.trim();
+
+        const plainText =
+            editor.innerText.trim();
 
         const date =
             document
@@ -431,19 +768,51 @@
         const status =
             document.getElementById("newsStatus");
 
-
         status.textContent = "";
         status.className = "";
 
 
-        if (!message) {
+        // ------------------------------------------
+        // SESSION PRÜFEN
+        // ------------------------------------------
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (
+            sessionError ||
+            !sessionData.session
+        ) {
+
+            status.textContent =
+                "Du bist nicht mehr eingeloggt. Bitte erneut einloggen.";
+
+            status.className =
+                "error";
+
+            return;
+
+        }
+
+
+        // ------------------------------------------
+        // NACHRICHT PRÜFEN
+        // ------------------------------------------
+
+        if (!plainText) {
 
             status.textContent =
                 "Bitte eine Nachricht eingeben.";
 
-            status.className = "error";
+            status.className =
+                "error";
 
             return;
+
         }
 
 
@@ -452,46 +821,91 @@
             status.textContent =
                 "Bitte ein Datum auswählen.";
 
-            status.className = "error";
+            status.className =
+                "error";
 
             return;
+
         }
 
 
-        const { error } =
+        // ------------------------------------------
+        // HTML BEREINIGEN
+        // ------------------------------------------
+
+        const cleanMessage =
+            DOMPurify.sanitize(
+                message,
+                {
+                    ALLOWED_TAGS: [
+                        "b",
+                        "strong",
+                        "i",
+                        "em",
+                        "u",
+                        "s",
+                        "strike",
+                        "span",
+                        "br"
+                    ],
+
+                    ALLOWED_ATTR: [
+                        "style"
+                    ],
+
+                    ALLOWED_STYLES: [
+                        "color"
+                    ]
+                }
+            );
+
+
+        // ------------------------------------------
+        // NEWS SPEICHERN
+        // ------------------------------------------
+
+        const { data, error } =
             await supabaseClient
                 .from("news")
                 .insert([
                     {
-                        message: message,
+                        message: cleanMessage,
                         date: date
                     }
-                ]);
+                ])
+                .select();
 
 
         if (error) {
 
+            console.error(
+                "Supabase INSERT Fehler:",
+                error
+            );
+
             status.textContent =
-                "Fehler: " + error.message;
+                "Fehler: " +
+                error.message;
 
-            status.className = "error";
-
-            console.error(error);
+            status.className =
+                "error";
 
             return;
+
         }
 
 
-        document
-            .getElementById("newsMessage")
-            .value = "";
+        // ------------------------------------------
+        // ERFOLG
+        // ------------------------------------------
 
+        editor.innerHTML = "";
 
         status.textContent =
             "News erfolgreich veröffentlicht!";
 
-        status.className = "success";
-
+        status.className =
+            "success";
 
         loadNews();
 
@@ -509,9 +923,25 @@
                 "Möchtest du diese News wirklich löschen?"
             );
 
-
         if (!confirmDelete) {
             return;
+        }
+
+
+        const {
+            data: sessionData
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (!sessionData.session) {
+
+            alert(
+                "Du bist nicht mehr eingeloggt."
+            );
+
+            return;
+
         }
 
 
@@ -532,6 +962,7 @@
             console.error(error);
 
             return;
+
         }
 
 
@@ -554,29 +985,28 @@
 
 
     // ==========================================
-    // HTML SICHER MACHEN
-    // ==========================================
-
-    function escapeHtml(text) {
-
-        const div =
-            document.createElement("div");
-
-        div.textContent = text;
-
-        return div.innerHTML;
-
-    }
-
-
-    // ==========================================
     // SESSION PRÜFEN
     // ==========================================
 
     async function checkSession() {
 
-        const { data } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session-Fehler:",
+                error
+            );
+
+            return;
+
+        }
 
 
         if (data.session) {
@@ -587,6 +1017,33 @@
 
     }
 
+
+    // ==========================================
+    // AUTH STATE
+    // ==========================================
+
+    supabaseClient.auth.onAuthStateChange(
+        (event, session) => {
+
+            if (event === "SIGNED_OUT") {
+
+                document
+                    .getElementById("adminPanel")
+                    .classList.add("hidden");
+
+                document
+                    .getElementById("loginPanel")
+                    .classList.remove("hidden");
+
+            }
+
+        }
+    );
+
+
+    // ==========================================
+    // START
+    // ==========================================
 
     checkSession();
 
