@@ -23,6 +23,23 @@
 
     <link rel="icon" type="image/png" href="NoelSMPLM.png">
 
+    <!--
+        THEME SOFORT SETZEN
+        Light Mode ist Standard.
+        Dadurch gibt es beim Laden keinen kurzen falschen Theme-Flash.
+    -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("noelsmp-theme");
+
+            if (savedTheme === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+
     <style>
 
         * {
@@ -43,13 +60,158 @@
             font-family: "Press Start 2P", monospace;
             font-size: 11px;
             line-height: 1.8;
-            color: #eeeeee;
+
+            color: #222;
+            background: #f4f4f4;
+
+            transition:
+                background-color 0.35s ease,
+                color 0.35s ease;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
+        /* =========================================
+           LIGHT MODE – ORIGINAL / STANDARD
+        ========================================= */
+
+        :root {
+            --page-background: #f4f4f4;
+            --text: #222222;
+            --text-soft: #555555;
+
+            --card: rgba(255, 255, 255, 0.78);
+            --card-hover: rgba(255, 255, 255, 0.92);
+
+            --border: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.16);
+
+            --small-card: rgba(0, 0, 0, 0.035);
+            --small-card-hover: rgba(0, 0, 0, 0.07);
+
+            --blue: #3696e8;
+            --blue-light: #63b5ff;
+
+            --shadow: rgba(0, 0, 0, 0.12);
         }
+
+        /* =========================================
+           DARK MODE
+        ========================================= */
+
+        html[data-theme="dark"] {
+            --page-background: #07101f;
+            --text: #eeeeee;
+            --text-soft: #b7b7b7;
+
+            --card: rgba(10, 20, 40, 0.55);
+            --card-hover: rgba(10, 20, 40, 0.68);
+
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.16);
+
+            --small-card: rgba(255, 255, 255, 0.045);
+            --small-card-hover: rgba(255, 255, 255, 0.09);
+
+            --blue: #63b5ff;
+            --blue-light: #63b5ff;
+
+            --shadow: rgba(0, 0, 0, 0.25);
+        }
+
+        body {
+            background: var(--page-background);
+            color: var(--text);
+        }
+
+        p {
+            color: var(--text);
+        }
+
+        /* =========================================
+           THEME BUTTON
+        ========================================= */
+
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            border: 1px solid var(--border);
+            background: var(--card);
+
+            color: var(--text);
+
+            backdrop-filter: blur(12px);
+
+            cursor: pointer;
+
+            font-family: Arial, sans-serif;
+            font-size: 21px;
+
+            z-index: 9999;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-3px) scale(1.04);
+
+            background: var(--card-hover);
+
+            border-color: var(--blue);
+
+            box-shadow:
+                0 8px 25px var(--shadow),
+                0 0 15px rgba(99, 181, 255, 0.15);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.92);
+        }
+
+        .theme-icon {
+            display: block;
+
+            transition:
+                transform 0.3s ease,
+                opacity 0.2s ease;
+        }
+
+        .theme-toggle:hover .theme-icon {
+            transform: rotate(15deg) scale(1.08);
+        }
+
+        @media (max-width: 600px) {
+
+            .theme-toggle {
+                top: 10px;
+                left: 10px;
+
+                width: 43px;
+                height: 43px;
+
+                border-radius: 12px;
+
+                font-size: 18px;
+            }
+
+        }
+
+        /* =========================================
+           PAGE
+        ========================================= */
 
         .page {
             width: 100%;
@@ -57,25 +219,35 @@
             margin: 0 auto;
         }
 
+        /* =========================================
+           HERO
+        ========================================= */
+
         .hero {
             text-align: center;
             padding: 45px 25px;
             margin-bottom: 25px;
             border-radius: 24px;
-            background: rgba(10, 20, 40, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            background: var(--card);
+            border: 1px solid var(--border);
+
             backdrop-filter: blur(10px);
-            transition: 0.25s ease;
+
+            transition:
+                0.25s ease,
+                background 0.35s ease,
+                border-color 0.35s ease;
         }
 
         .hero:hover {
             transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.16);
+            border-color: var(--border-hover);
         }
 
         .hero h1 {
             margin: 0 0 25px;
-            color: #63b5ff;
+            color: var(--blue-light);
             font-size: clamp(20px, 4vw, 32px);
         }
 
@@ -90,27 +262,41 @@
             transform: scale(1.03);
         }
 
+        /* =========================================
+           SECTIONS
+        ========================================= */
+
         .section {
             margin-bottom: 25px;
             padding: 28px;
             border-radius: 20px;
-            background: rgba(10, 20, 40, 0.48);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            background: var(--card);
+            border: 1px solid var(--border);
+
             backdrop-filter: blur(10px);
-            transition: 0.25s ease;
+
+            transition:
+                0.25s ease,
+                background 0.35s ease,
+                border-color 0.35s ease;
         }
 
         .section:hover {
             transform: translateY(-2px);
-            background: rgba(10, 20, 40, 0.57);
-            border-color: rgba(255, 255, 255, 0.13);
+            background: var(--card-hover);
+            border-color: var(--border-hover);
         }
 
         .section h2 {
             margin: 0 0 15px;
-            color: #63b5ff;
+            color: var(--blue-light);
             font-size: 18px;
         }
+
+        /* =========================================
+           SOCIALS
+        ========================================= */
 
         .socials {
             display: grid;
@@ -122,22 +308,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
             min-height: 58px;
             padding: 10px;
+
             border-radius: 14px;
+
             text-decoration: none;
-            color: white;
-            background: rgba(255, 255, 255, 0.045);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text);
+
+            background: var(--small-card);
+            border: 1px solid var(--border);
+
             font-family: "Press Start 2P", monospace;
             font-size: 8px;
-            transition: 0.2s ease;
+
+            transition:
+                0.2s ease,
+                background 0.35s ease,
+                color 0.25s ease,
+                border-color 0.25s ease;
         }
 
         .social:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.09);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--small-card-hover);
+            border-color: var(--border-hover);
         }
 
         .twitch:hover {
@@ -160,6 +356,10 @@
             border-color: #5865f2;
         }
 
+        /* =========================================
+           ABOUT
+        ========================================= */
+
         .about {
             margin: 0;
             opacity: 0.75;
@@ -168,8 +368,12 @@
         }
 
         .server-ip {
-            color: #63c5ff;
+            color: var(--blue);
         }
+
+        /* =========================================
+           QUICKSTART
+        ========================================= */
 
         .quickstart {
             display: grid;
@@ -182,26 +386,34 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
             min-height: 130px;
+
             border-radius: 18px;
+
             text-decoration: none;
+
             font-family: "Press Start 2P", monospace;
             font-size: 13px;
-            color: white;
-            background: rgba(255, 255, 255, 0.045);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            color: var(--text);
+
+            background: var(--small-card);
+            border: 1px solid var(--border);
+
             transition:
                 transform 0.2s ease,
                 background 0.2s ease,
                 border-color 0.2s ease,
-                box-shadow 0.2s ease;
+                box-shadow 0.2s ease,
+                color 0.2s ease;
         }
 
         .quickstart a:hover {
             transform: translateY(-7px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            background: var(--small-card-hover);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 30px var(--shadow);
         }
 
         .rules:hover {
@@ -219,10 +431,14 @@
             border-color: #3da69d !important;
         }
 
+        /* =========================================
+           WELCOME / WARNING
+        ========================================= */
+
         .welcome {
             text-align: center;
             font-size: 13px;
-            color: #63b5ff;
+            color: var(--blue-light);
         }
 
         .warning {
@@ -231,15 +447,192 @@
             line-height: 2;
         }
 
+        /* =========================================
+           FOOTER
+        ========================================= */
+
         footer {
             margin-top: 35px;
             padding: 30px 20px;
+
             text-align: center;
+
             font-size: 8px;
             line-height: 2;
+
             opacity: 0.45;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+            border-top: 1px solid var(--border);
+
+            transition:
+                border-color 0.35s ease;
         }
+
+        /* =========================================
+           NEWS
+        ========================================= */
+
+        .news-section .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .news-section .news-card {
+            position: relative;
+
+            min-height: 145px;
+
+            padding: 18px;
+            padding-top: 40px;
+
+            border-radius: 15px;
+
+            background: var(--small-card);
+            border: 1px solid var(--border);
+
+            overflow: hidden;
+
+            transition:
+                0.25s ease,
+                background 0.35s ease,
+                border-color 0.35s ease;
+        }
+
+        .news-section .news-card:hover {
+            transform: translateY(-5px);
+
+            background: var(--small-card-hover);
+
+            border-color: var(--border-hover);
+
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .news-section .news-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: #63b5ff;
+        }
+
+        .news-section .news-card:nth-child(2)::before {
+            background: #ffd35c;
+        }
+
+        .news-section .news-card:nth-child(3)::before {
+            background: #a978ff;
+        }
+
+        .news-section .news-date {
+            position: absolute;
+
+            top: 13px;
+            right: 14px;
+
+            color: var(--text);
+
+            opacity: 0.4;
+
+            font-size: 6px;
+            white-space: nowrap;
+        }
+
+        .news-section .news-card p {
+            margin: 0;
+
+            color: var(--text);
+
+            font-size: 8px;
+            line-height: 1.9;
+        }
+
+        .news-section .all-news-button {
+            transition: 0.2s ease;
+        }
+
+        .news-section .all-news-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* =========================================
+           LOGO IP COPY
+        ========================================= */
+
+        .logo-copy {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo-copy img {
+            width: 300px;
+            display: block;
+
+            transition: transform 0.25s ease;
+        }
+
+        .logo-copy:hover img {
+            transform: scale(1.03);
+        }
+
+        .logo-copy-hint {
+            margin-top: 12px;
+
+            font-size: 7px;
+            color: var(--blue);
+
+            opacity: 0;
+
+            transform: translateY(-5px);
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+
+            pointer-events: none;
+        }
+
+        .logo-copy:hover .logo-copy-hint {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .logo-copy-success {
+            margin-top: 12px;
+
+            font-size: 7px;
+            color: #63ff9b;
+
+            opacity: 0;
+
+            transform: translateY(-5px);
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+
+            pointer-events: none;
+        }
+
+        .logo-copy-success.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
 
         @media (max-width: 900px) {
 
@@ -248,6 +641,10 @@
             }
 
             .quickstart {
+                grid-template-columns: 1fr;
+            }
+
+            .news-section .news-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -294,167 +691,31 @@
                 font-size: 7px;
             }
 
+            .news-section .news-card {
+                min-height: 125px;
+                padding: 16px;
+                padding-top: 38px;
+            }
+
+            .news-section .news-card p {
+                font-size: 7px;
+                line-height: 1.8;
+            }
+
+            .news-section .news-date {
+                font-size: 5px;
+            }
+
+            .logo-copy img {
+                width: 230px;
+            }
+
+            .logo-copy-hint,
+            .logo-copy-success {
+                font-size: 6px;
+            }
+
         }
-
-        .news-section .news-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 12px;
-}
-
-.news-section .news-card {
-position: relative;
-min-height: 145px;
-padding: 18px;
-padding-top: 40px;
-border-radius: 15px;
-background: rgba(255, 255, 255, 0.045);
-border: 1px solid rgba(255, 255, 255, 0.08);
-overflow: hidden;
-transition: 0.25s ease;
-}
-
-.news-section .news-card:hover {
-transform: translateY(-5px);
-background: rgba(255, 255, 255, 0.075);
-border-color: rgba(255, 255, 255, 0.18);
-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.news-section .news-card::before {
-content: "";
-position: absolute;
-left: 0;
-top: 0;
-width: 100%;
-height: 3px;
-background: #63b5ff;
-}
-
-.news-section .news-card:nth-child(2)::before {
-background: #ffd35c;
-}
-
-.news-section .news-card:nth-child(3)::before {
-background: #a978ff;
-}
-
-.news-section .news-date {
-position: absolute;
-top: 13px;
-right: 14px;
-color: rgba(255, 255, 255, 0.4);
-font-size: 6px;
-white-space: nowrap;
-}
-
-.news-section .news-card p {
-margin: 0;
-color: #eeeeee;
-font-size: 8px;
-line-height: 1.9;
-}
-
-.news-section .all-news-button {
-transition: 0.2s ease;
-}
-
-.news-section .all-news-button:hover {
-transform: translateY(-3px);
-}
-
-@media (max-width: 900px) {
-
-.news-section .news-grid {
-    grid-template-columns: 1fr;
-}
-
-}
-
-@media (max-width: 600px) {
-
-.news-section .news-card {
-    min-height: 125px;
-    padding: 16px;
-    padding-top: 38px;
-}
-
-.news-section .news-card p {
-    font-size: 7px;
-    line-height: 1.8;
-}
-
-.news-section .news-date {
-    font-size: 5px;
-}
-
-}
-
-/* Logo IP Copy */
-.logo-copy {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-}
-
-.logo-copy img {
-    width: 300px;
-    display: block;
-    transition: transform 0.25s ease;
-}
-
-.logo-copy:hover img {
-    transform: scale(1.03);
-}
-
-.logo-copy-hint {
-    margin-top: 12px;
-    font-size: 7px;
-    color: #63b5ff;
-    opacity: 0;
-    transform: translateY(-5px);
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-    pointer-events: none;
-}
-
-.logo-copy:hover .logo-copy-hint {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.logo-copy-success {
-    margin-top: 12px;
-    font-size: 7px;
-    color: #63ff9b;
-    opacity: 0;
-    transform: translateY(-5px);
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-    pointer-events: none;
-}
-
-.logo-copy-success.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (max-width: 600px) {
-    .logo-copy img {
-        width: 230px;
-    }
-
-    .logo-copy-hint,
-    .logo-copy-success {
-        font-size: 6px;
-    }
-}
-
-
 
     </style>
 
@@ -462,30 +723,46 @@ transform: translateY(-3px);
 
 <body>
 
+<!-- =========================================
+     DARK / LIGHT MODE BUTTON
+========================================= -->
+
+<button
+    class="theme-toggle"
+    id="themeToggle"
+    type="button"
+    aria-label="Dark Mode aktivieren"
+    title="Dark / Light Mode"
+>
+    <span class="theme-icon" id="themeIcon">🌙</span>
+</button>
+
+
 <div class="page">
 
     <section class="hero">
 
         <h1>WILLKOMMEN AUF DEM NOELSMP</h1>
 
+        <div class="logo-copy" onclick="copyServerIP()">
 
-<div class="logo-copy" onclick="copyServerIP()">
-    <img
-        src="NoelSMPL.png"
-        alt="NoelSMP"
-    >
+            <img
+                src="NoelSMPL.png"
+                alt="NoelSMP"
+            >
 
-    <span class="logo-copy-hint">
-        KLICKE HIER, UM DIE IP ZU KOPIEREN
-    </span>
+            <span class="logo-copy-hint">
+                KLICKE HIER, UM DIE IP ZU KOPIEREN
+            </span>
 
-    <span class="logo-copy-success" id="copySuccess">
-        IP KOPIERT!
-    </span>
-</div>
+            <span class="logo-copy-success" id="copySuccess">
+                IP KOPIERT!
+            </span>
 
+        </div>
 
     </section>
+
 
     <section class="section">
 
@@ -546,24 +823,25 @@ transform: translateY(-3px);
 
     </section>
 
+
     <section class="section news-section">
 
-<div class="section-header">
+        <div class="section-header">
 
-    <div>
-        <span class="section-label">NOELSMP</span>
-        <h2>NEWS</h2>
-    </div>
+            <div>
+                <span class="section-label">NOELSMP</span>
+                <h2>NEWS</h2>
+            </div>
 
-    <a href="/news/" class="all-news-button">
-        ALLE NEWS →
-    </a>
+            <a href="/news/" class="all-news-button">
+                ALLE NEWS →
+            </a>
 
-</div>
+        </div>
 
-<div class="news-grid" id="homeNewsGrid"></div>
+        <div class="news-grid" id="homeNewsGrid"></div>
 
-</section>
+    </section>
 
 
     <section class="section">
@@ -599,6 +877,7 @@ transform: translateY(-3px);
 
     </section>
 
+
     <section class="section">
 
         <h2>QUICKSTART</h2>
@@ -609,24 +888,15 @@ transform: translateY(-3px);
 
         <div class="quickstart">
 
-            <a
-                href="/rules/"
-                class="rules"
-            >
+            <a href="/rules/" class="rules">
                 RULES
             </a>
 
-            <a
-                href="/commands/"
-                class="commands"
-            >
+            <a href="/commands/" class="commands">
                 COMMANDS
             </a>
 
-            <a
-                href="/ranks/"
-                class="ranks"
-            >
+            <a href="/ranks/" class="ranks">
                 RANKS
             </a>
 
@@ -634,11 +904,13 @@ transform: translateY(-3px);
 
     </section>
 
+
     <section class="section welcome">
 
         Viel Spass auf dem SMP :)
 
     </section>
+
 
     <section class="section">
 
@@ -656,6 +928,7 @@ transform: translateY(-3px);
 
 </div>
 
+
 <footer>
 
     developed by dasnoooel
@@ -666,44 +939,128 @@ transform: translateY(-3px);
 
 </footer>
 
+
 <script>
+
+/* =========================================
+   DARK / LIGHT MODE
+========================================= */
+
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+
+function updateThemeButton() {
+
+    const currentTheme =
+        document.documentElement.getAttribute("data-theme");
+
+    if (currentTheme === "dark") {
+
+        themeIcon.textContent = "☀️";
+
+        themeToggle.setAttribute(
+            "aria-label",
+            "Light Mode aktivieren"
+        );
+
+    } else {
+
+        themeIcon.textContent = "🌙";
+
+        themeToggle.setAttribute(
+            "aria-label",
+            "Dark Mode aktivieren"
+        );
+    }
+}
+
+themeToggle.addEventListener("click", function () {
+
+    const currentTheme =
+        document.documentElement.getAttribute("data-theme");
+
+    const newTheme =
+        currentTheme === "dark"
+            ? "light"
+            : "dark";
+
+    document.documentElement.setAttribute(
+        "data-theme",
+        newTheme
+    );
+
+    localStorage.setItem(
+        "noelsmp-theme",
+        newTheme
+    );
+
+    updateThemeButton();
+});
+
+updateThemeButton();
+
+
+/* =========================================
+   COPY SERVER IP
+========================================= */
+
 function copyServerIP() {
+
     navigator.clipboard.writeText("noelsmp.net").then(() => {
-        const success = document.getElementById("copySuccess");
+
+        const success =
+            document.getElementById("copySuccess");
 
         success.classList.add("show");
 
         setTimeout(() => {
+
             success.classList.remove("show");
+
         }, 2000);
+
     });
+
 }
+
 </script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL = "https://kinmvbfiyjpokerbbjjj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+const SUPABASE_URL =
+    "https://kinmvbfiyjpokerbbjjj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
 
 async function loadHomeNews() {
 
-    const newsGrid = document.getElementById("homeNewsGrid");
+    const newsGrid =
+        document.getElementById("homeNewsGrid");
 
     if (!newsGrid) return;
 
-    const { data, error } = await supabaseClient
-        .from("news")
-        .select("*")
-        .order("date", { ascending: false })
-        .order("created_at", { ascending: false })
-        .limit(3);
+    const { data, error } =
+        await supabaseClient
+            .from("news")
+            .select("*")
+            .order("date", { ascending: false })
+            .order("created_at", { ascending: false })
+            .limit(3);
+
 
     if (error) {
+
         console.error("News-Fehler:", error);
 
         newsGrid.innerHTML = `
@@ -715,20 +1072,26 @@ async function loadHomeNews() {
         return;
     }
 
+
     newsGrid.innerHTML = "";
+
 
     data.forEach(news => {
 
-        const article = document.createElement("article");
+        const article =
+            document.createElement("article");
 
         article.className = "news-card";
 
-        const date = new Date(news.date + "T00:00:00")
-            .toLocaleDateString("de-DE", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-            });
+
+        const date =
+            new Date(news.date + "T00:00:00")
+                .toLocaleDateString("de-DE", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                });
+
 
         article.innerHTML = `
             <span class="news-date">
@@ -740,20 +1103,29 @@ async function loadHomeNews() {
             </p>
         `;
 
+
         newsGrid.appendChild(article);
+
     });
+
 }
+
 
 function escapeHtml(text) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
     div.textContent = text;
 
     return div.innerHTML;
+
 }
 
+
 loadHomeNews();
+
 </script>
+
 </body>
 </html>
