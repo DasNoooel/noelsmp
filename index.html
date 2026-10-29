@@ -1,1131 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="de" data-theme="dark">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>NoelSMP</title>
-
-    <link rel="stylesheet" href="images.css">
-    <link rel="stylesheet" href="text.css">
-    <link rel="stylesheet" href="background.css">
-    <link rel="stylesheet" href="news.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="icon" type="image/png" href="NoelSMPLM.png">
-
-    <!--
-        THEME SOFORT SETZEN
-        Light Mode ist Standard.
-        Dadurch gibt es beim Laden keinen kurzen falschen Theme-Flash.
-    -->
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem("noelsmp-theme");
-
-            if (savedTheme === "dark") {
-                document.documentElement.setAttribute("data-theme", "dark");
-            } else {
-                document.documentElement.setAttribute("data-theme", "light");
-            }
-        })();
-    </script>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            max-width: 100%;
-            overflow-x: hidden;
-        }
-
-        body {
-            margin: 0;
-            padding: 25px 20px 0;
-            max-width: 100%;
-            overflow-x: hidden;
-            font-family: "Press Start 2P", monospace;
-            font-size: 11px;
-            line-height: 1.8;
-
-            color: #222;
-            background: #f4f4f4;
-
-            transition:
-                background-color 0.35s ease,
-                color 0.35s ease;
-        }
-
-        /* =========================================
-           LIGHT MODE – ORIGINAL / STANDARD
-        ========================================= */
-
-        :root {
-            --page-background: #f4f4f4;
-            --text: #222222;
-            --text-soft: #555555;
-
-            --card: rgba(255, 255, 255, 0.78);
-            --card-hover: rgba(255, 255, 255, 0.92);
-
-            --border: rgba(0, 0, 0, 0.08);
-            --border-hover: rgba(0, 0, 0, 0.16);
-
-            --small-card: rgba(0, 0, 0, 0.035);
-            --small-card-hover: rgba(0, 0, 0, 0.07);
-
-            --blue: #3696e8;
-            --blue-light: #63b5ff;
-
-            --shadow: rgba(0, 0, 0, 0.12);
-        }
-
-        /* =========================================
-           DARK MODE
-        ========================================= */
-
-        html[data-theme="dark"] {
-            --page-background: #07101f;
-            --text: #eeeeee;
-            --text-soft: #b7b7b7;
-
-            --card: rgba(10, 20, 40, 0.55);
-            --card-hover: rgba(10, 20, 40, 0.68);
-
-            --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(255, 255, 255, 0.16);
-
-            --small-card: rgba(255, 255, 255, 0.045);
-            --small-card-hover: rgba(255, 255, 255, 0.09);
-
-            --blue: #63b5ff;
-            --blue-light: #63b5ff;
-
-            --shadow: rgba(0, 0, 0, 0.25);
-        }
-
-        body {
-            background: var(--page-background);
-            color: var(--text);
-        }
-
-        p {
-            color: var(--text);
-        }
-
-        /* =========================================
-           THEME BUTTON
-        ========================================= */
-
-        .theme-toggle {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-
-            width: 48px;
-            height: 48px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 14px;
-
-            border: 1px solid var(--border);
-            background: var(--card);
-
-            color: var(--text);
-
-            backdrop-filter: blur(12px);
-
-            cursor: pointer;
-
-            font-family: Arial, sans-serif;
-            font-size: 21px;
-
-            z-index: 9999;
-
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease,
-                border-color 0.2s ease,
-                box-shadow 0.2s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: translateY(-3px) scale(1.04);
-
-            background: var(--card-hover);
-
-            border-color: var(--blue);
-
-            box-shadow:
-                0 8px 25px var(--shadow),
-                0 0 15px rgba(99, 181, 255, 0.15);
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.92);
-        }
-
-        .theme-icon {
-            display: block;
-
-            transition:
-                transform 0.3s ease,
-                opacity 0.2s ease;
-        }
-
-        .theme-toggle:hover .theme-icon {
-            transform: rotate(15deg) scale(1.08);
-        }
-
-        @media (max-width: 600px) {
-
-            .theme-toggle {
-                top: 10px;
-                left: 10px;
-
-                width: 43px;
-                height: 43px;
-
-                border-radius: 12px;
-
-                font-size: 18px;
-            }
-
-        }
-
-        /* =========================================
-           PAGE
-        ========================================= */
-
-        .page {
-            width: 100%;
-            max-width: 1150px;
-            margin: 0 auto;
-        }
-
-        /* =========================================
-           HERO
-        ========================================= */
-
-        .hero {
-            text-align: center;
-            padding: 45px 25px;
-            margin-bottom: 25px;
-            border-radius: 24px;
-
-            background: var(--card);
-            border: 1px solid var(--border);
-
-            backdrop-filter: blur(10px);
-
-            transition:
-                0.25s ease,
-                background 0.35s ease,
-                border-color 0.35s ease;
-        }
-
-        .hero:hover {
-            transform: translateY(-3px);
-            border-color: var(--border-hover);
-        }
-
-        .hero h1 {
-            margin: 0 0 25px;
-            color: var(--blue-light);
-            font-size: clamp(20px, 4vw, 32px);
-        }
-
-        .hero img {
-            width: 300px;
-            display: block;
-            margin: 0 auto;
-            transition: transform 0.25s ease;
-        }
-
-        .hero img:hover {
-            transform: scale(1.03);
-        }
-
-        /* =========================================
-           SECTIONS
-        ========================================= */
-
-        .section {
-            margin-bottom: 25px;
-            padding: 28px;
-            border-radius: 20px;
-
-            background: var(--card);
-            border: 1px solid var(--border);
-
-            backdrop-filter: blur(10px);
-
-            transition:
-                0.25s ease,
-                background 0.35s ease,
-                border-color 0.35s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-2px);
-            background: var(--card-hover);
-            border-color: var(--border-hover);
-        }
-
-        .section h2 {
-            margin: 0 0 15px;
-            color: var(--blue-light);
-            font-size: 18px;
-        }
-
-        /* =========================================
-           SOCIALS
-        ========================================= */
-
-        .socials {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-        }
-
-        .social {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            min-height: 58px;
-            padding: 10px;
-
-            border-radius: 14px;
-
-            text-decoration: none;
-            color: var(--text);
-
-            background: var(--small-card);
-            border: 1px solid var(--border);
-
-            font-family: "Press Start 2P", monospace;
-            font-size: 8px;
-
-            transition:
-                0.2s ease,
-                background 0.35s ease,
-                color 0.25s ease,
-                border-color 0.25s ease;
-        }
-
-        .social:hover {
-            transform: translateY(-5px);
-            background: var(--small-card-hover);
-            border-color: var(--border-hover);
-        }
-
-        .twitch:hover {
-            color: #b98cff;
-            border-color: #9146ff;
-        }
-
-        .youtube:hover {
-            color: #ff6b6b;
-            border-color: #ff0000;
-        }
-
-        .instagram:hover {
-            color: #ff8bd4;
-            border-color: #e1306c;
-        }
-
-        .discord:hover {
-            color: #8fa8ff;
-            border-color: #5865f2;
-        }
-
-        /* =========================================
-           ABOUT
-        ========================================= */
-
-        .about {
-            margin: 0;
-            opacity: 0.75;
-            line-height: 2.1;
-            font-size: 10px;
-        }
-
-        .server-ip {
-            color: var(--blue);
-        }
-
-        /* =========================================
-           QUICKSTART
-        ========================================= */
-
-        .quickstart {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .quickstart a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            min-height: 130px;
-
-            border-radius: 18px;
-
-            text-decoration: none;
-
-            font-family: "Press Start 2P", monospace;
-            font-size: 13px;
-
-            color: var(--text);
-
-            background: var(--small-card);
-            border: 1px solid var(--border);
-
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease,
-                border-color 0.2s ease,
-                box-shadow 0.2s ease,
-                color 0.2s ease;
-        }
-
-        .quickstart a:hover {
-            transform: translateY(-7px);
-            background: var(--small-card-hover);
-            border-color: var(--border-hover);
-            box-shadow: 0 12px 30px var(--shadow);
-        }
-
-        .rules:hover {
-            color: #d69a6a;
-            border-color: #a96f43 !important;
-        }
-
-        .commands:hover {
-            color: #b28cff;
-            border-color: #774fc4 !important;
-        }
-
-        .ranks:hover {
-            color: #58d0c5;
-            border-color: #3da69d !important;
-        }
-
-        /* =========================================
-           WELCOME / WARNING
-        ========================================= */
-
-        .welcome {
-            text-align: center;
-            font-size: 13px;
-            color: var(--blue-light);
-        }
-
-        .warning {
-            color: #ff6d6d;
-            font-size: 9px;
-            line-height: 2;
-        }
-
-        /* =========================================
-           FOOTER
-        ========================================= */
-
-        footer {
-            margin-top: 35px;
-            padding: 30px 20px;
-
-            text-align: center;
-
-            font-size: 8px;
-            line-height: 2;
-
-            opacity: 0.45;
-
-            border-top: 1px solid var(--border);
-
-            transition:
-                border-color 0.35s ease;
-        }
-
-        /* =========================================
-           NEWS
-        ========================================= */
-
-        .news-section .news-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .news-section .news-card {
-            position: relative;
-
-            min-height: 145px;
-
-            padding: 18px;
-            padding-top: 40px;
-
-            border-radius: 15px;
-
-            background: var(--small-card);
-            border: 1px solid var(--border);
-
-            overflow: hidden;
-
-            transition:
-                0.25s ease,
-                background 0.35s ease,
-                border-color 0.35s ease;
-        }
-
-        .news-section .news-card:hover {
-            transform: translateY(-5px);
-
-            background: var(--small-card-hover);
-
-            border-color: var(--border-hover);
-
-            box-shadow: 0 10px 25px var(--shadow);
-        }
-
-        .news-section .news-card::before {
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-            top: 0;
-
-            width: 100%;
-            height: 3px;
-
-            background: #63b5ff;
-        }
-
-        .news-section .news-card:nth-child(2)::before {
-            background: #ffd35c;
-        }
-
-        .news-section .news-card:nth-child(3)::before {
-            background: #a978ff;
-        }
-
-        .news-section .news-date {
-            position: absolute;
-
-            top: 13px;
-            right: 14px;
-
-            color: var(--text);
-
-            opacity: 0.4;
-
-            font-size: 6px;
-            white-space: nowrap;
-        }
-
-        .news-section .news-card p {
-            margin: 0;
-
-            color: var(--text);
-
-            font-size: 8px;
-            line-height: 1.9;
-        }
-
-        .news-section .all-news-button {
-            transition: 0.2s ease;
-        }
-
-        .news-section .all-news-button:hover {
-            transform: translateY(-3px);
-        }
-
-        /* =========================================
-           LOGO IP COPY
-        ========================================= */
-
-        .logo-copy {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-
-            cursor: pointer;
-            position: relative;
-        }
-
-        .logo-copy img {
-            width: 300px;
-            display: block;
-
-            transition: transform 0.25s ease;
-        }
-
-        .logo-copy:hover img {
-            transform: scale(1.03);
-        }
-
-        .logo-copy-hint {
-            margin-top: 12px;
-
-            font-size: 7px;
-            color: var(--blue);
-
-            opacity: 0;
-
-            transform: translateY(-5px);
-
-            transition:
-                opacity 0.2s ease,
-                transform 0.2s ease;
-
-            pointer-events: none;
-        }
-
-        .logo-copy:hover .logo-copy-hint {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .logo-copy-success {
-            margin-top: 12px;
-
-            font-size: 7px;
-            color: #63ff9b;
-
-            opacity: 0;
-
-            transform: translateY(-5px);
-
-            transition:
-                opacity 0.2s ease,
-                transform 0.2s ease;
-
-            pointer-events: none;
-        }
-
-        .logo-copy-success.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* =========================================
-           RESPONSIVE
-        ========================================= */
-
-        @media (max-width: 900px) {
-
-            .socials {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .quickstart {
-                grid-template-columns: 1fr;
-            }
-
-            .news-section .news-grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-        @media (max-width: 600px) {
-
-            body {
-                padding: 12px 10px 0;
-            }
-
-            .section {
-                padding: 20px;
-                border-radius: 17px;
-            }
-
-            .hero {
-                padding: 35px 15px;
-                border-radius: 20px;
-            }
-
-            .hero img {
-                width: 230px;
-            }
-
-            .social {
-                font-size: 7px;
-            }
-
-            .about {
-                font-size: 8px;
-            }
-
-            .section h2 {
-                font-size: 15px;
-            }
-
-            .quickstart a {
-                min-height: 105px;
-                font-size: 11px;
-            }
-
-            .warning {
-                font-size: 7px;
-            }
-
-            .news-section .news-card {
-                min-height: 125px;
-                padding: 16px;
-                padding-top: 38px;
-            }
-
-            .news-section .news-card p {
-                font-size: 7px;
-                line-height: 1.8;
-            }
-
-            .news-section .news-date {
-                font-size: 5px;
-            }
-
-            .logo-copy img {
-                width: 230px;
-            }
-
-            .logo-copy-hint,
-            .logo-copy-success {
-                font-size: 6px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NoelSMP | Survival mit Freunden</title>
+<meta name="description" content="NoelSMP.net: Minecraft-Survival von DasNoooel mit eigener Wirtschaft, Clans, Arena, Events und Noel Pass.">
+<meta name="theme-color" content="#0b2159">
+<meta property="og:title" content="NoelSMP | Survival mit Freunden">
+<meta property="og:description" content="NoelSMP.net: Minecraft-Survival von DasNoooel mit eigener Wirtschaft, Clans, Arena, Events und Noel Pass.">
+<meta property="og:image" content="/NoelSMPL.png">
+<link rel="icon" type="image/png" href="NoelSMPLM.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:ital,wght@0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 
 </head>
-
 <body>
+<div class="scene" id="scene" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+<a class="toplink" href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener"><span data-px="discord" data-s="18"></span>Support</a>
+<header class="top wrap">
+  <button class="side play" type="button" data-copy-ip aria-label="Server-IP kopieren">
+    <span class="side-txt"><b>Jetzt spielen</b><small>noelsmp.net</small></span>
+    <span class="orb"><span data-px="play" data-s="26"></span><i class="badge" id="pCount">–</i></span>
+  </button>
+  <a class="logo-link" href="./" aria-label="NoelSMP Startseite"><img class="hero-logo" id="logo" src="NoelSMPL.png" alt="NoelSMP" width="560"></a>
+  <a class="side dc" href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener" aria-label="Discord beitreten">
+    <span class="orb"><span data-px="discord" data-s="26"></span></span>
+    <span class="side-txt"><b>Discord</b><small><span id="dCount">–</span> online</small></span>
+  </a>
+</header>
+<div class="layout wrap">
+  <aside class="rail">
+    <p class="rail-label">Willkommen auf NoelSMP</p>
+    <button class="joincard" type="button" data-copy-ip aria-label="Server-IP kopieren">
+      <img class="join-head" src="NoelSMPK.png" alt="">
+      <span class="join-txt"><b>Server-IP kopieren</b><small id="pSub">noelsmp.net</small></span>
+      <span class="join-arrow" aria-hidden="true">&rarr;</span>
+    </button>
+    <nav class="railnav panel" aria-label="Hauptmenü"><a class="navrow" href="" aria-current="page"><span data-px="house" data-s="46"></span><b>Start</b></a><a class="navrow" href="news/"><span data-px="bolt" data-s="46"></span><b>News</b></a><a class="navrow" href="commands/"><span data-px="book" data-s="46"></span><b>Commands</b></a><a class="navrow" href="ranks/"><span data-px="crown" data-s="46"></span><b>Ränge</b></a><a class="navrow" href="rules/"><span data-px="shield" data-s="46"></span><b>Regeln</b></a></nav>
+    <a class="banner" href="#event"><span data-px="megaphone" data-s="30"></span><b>Halloween-Event 2026, jetzt ansehen!</b></a>
+  </aside>
+  <div class="content">
 
-<!-- =========================================
-     DARK / LIGHT MODE BUTTON
-========================================= -->
+<main>
+<section class="panel intro">
+  <h1 class="grad">NoelSMP</h1>
+  <p class="sub">Wähle links eine Seite aus, um zu starten!</p>
+  <h2>Wer sind wir?</h2>
+  <p><b>NoelSMP.net</b> ist ein Survival-Server von <b>DasNoooel</b> mit eigener Wirtschaft, Clans, Arena und regelmäßigen Events. Alles Wichtige ist selbst gebaut, damit es zusammenpasst.</p>
+  <p>Angefangen hat alles klein auf Aternos, mit wackeliger Warteschlange und mehr Betas, als ich zählen kann. Nach Monaten des Rumprobierens läuft der Server jetzt auf eigener Hardware. Wir freuen uns über jeden, der vorbeikommt.</p>
+  <p class="how"><b>So kommst du rauf:</b> Minecraft Java starten, <b>noelsmp.net</b> eintragen und joinen. Neuere Versionen laufen direkt, ältere über ViaVersion. Bedrock-Spieler sprechen den Port bitte kurz im Discord ab.</p>
+</section>
 
-<button
-    class="theme-toggle"
-    id="themeToggle"
-    type="button"
-    aria-label="Dark Mode aktivieren"
-    title="Dark / Light Mode"
->
-    <span class="theme-icon" id="themeIcon">🌙</span>
-</button>
-
-
-<div class="page">
-
-    <section class="hero">
-
-        <h1>WILLKOMMEN AUF DEM NOELSMP</h1>
-
-        <div class="logo-copy" onclick="copyServerIP()">
-
-            <img
-                src="NoelSMPL.png"
-                alt="NoelSMP"
-            >
-
-            <span class="logo-copy-hint">
-                KLICKE HIER, UM DIE IP ZU KOPIEREN
-            </span>
-
-            <span class="logo-copy-success" id="copySuccess">
-                IP KOPIERT!
-            </span>
-
+<section class="event" id="event">
+  <div class="wrap">
+    <div class="event-box" id="eventBox">
+      <div>
+        <h2>Halloween-Event 2026</h2>
+        <p>Einen ganzen Tag lang Ausnahmezustand auf dem NoelSMP: doppelte Verkaufspreise, ein Warden mit einer Million Leben und zehn Quests mit einem Special-Item am Ende.</p>
+        <div class="countdown" id="countdown" data-start="2026-10-31T00:00:00+01:00" aria-label="Countdown bis zum Event">
+          <div class="cd"><b data-u="d">00</b><span>Tage</span></div>
+          <div class="cd"><b data-u="h">00</b><span>Stunden</span></div>
+          <div class="cd"><b data-u="m">00</b><span>Minuten</span></div>
+          <div class="cd"><b data-u="s">00</b><span>Sekunden</span></div>
         </div>
+        <p id="eventLive" style="font-weight:800;color:#ffd9a0;margin:12px 0 0"></p>
+      </div>
+      <ul class="event-list">
+        <li><span data-px="coin" data-s="40"></span><div><b>Happy Hour den ganzen Tag</b><small>Alle Verkaufspreise und Sterne zählen doppelt.</small></div></li>
+        <li><span data-px="skull" data-s="40"></span><div><b>XXL-Warden-Bossfight</b><small>1.000.000 Leben, riesig groß. Wer den meisten Schaden macht, bekommt Preisgeld.</small></div></li>
+        <li><span data-px="pumpkin" data-s="40"></span><div><b>10 Halloween-Quests</b><small>Geld für jede geschaffte Quest. Wer alle zehn schafft, bekommt einen Kürbis-Kopf mit Unterschrift "Halloween-Event 2026".</small></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    </section>
+<section class="sec" id="features">
+  <div class="wrap">
+    <h2>Was auf dem NoelSMP los ist</h2>
+    <p class="lead">Fast alles auf dem Server ist selbst gebaut, damit es zusammenpasst und sich nicht wie ein Plugin-Haufen anfühlt.</p>
+    <div class="bento">
+      <article class="tile t-a">
+        <h3><span data-px="coin" data-s="38"></span>Eigene Wirtschaft</h3>
+        <p>Verdiene Geld mit <b>/sell</b>, kauf im Shop, handel im Auktionshaus oder gib Aufträge auf, damit andere dir das Zeug besorgen. Beim Hovern über ein Item siehst du direkt, was es beim Verkaufen bringt.</p>
+        <ul><li><span>Shop</span></li><li><span>Sell</span></li><li><span>Auktionshaus</span></li><li><span>Aufträge</span></li><li><span>Reichenliste</span></li></ul>
+      </article>
+      <article class="tile t-b">
+        <h3><span data-px="shield" data-s="34"></span>Clans & Freunde</h3>
+        <p>Gründe einen Clan mit eigenem Tag, nutze Clan-Chat und Clan-Home. Mit Freunden gibt es Gruppenchats und Nachrichten, die du stummschalten kannst.</p>
+      </article>
+      <article class="tile t-c">
+        <h3><span data-px="house" data-s="34"></span>Homes, TPA & RTP</h3>
+        <p>Homes mit eigenem Icon, Teleport-Anfragen mit klickbaren Knöpfen im Chat und ein RTP-Menü für Overworld, Nether und End.</p>
+      </article>
+      <article class="tile t-d">
+        <h3><span data-px="star" data-s="34"></span>Sterne & God-Tools</h3>
+        <p>Spielzeit und Kills bringen Sterne. Im Starshop gibt es 3x3-Werkzeuge, Baumfäller-Äxte, Effekte und Spawner, die Drops für dich sammeln.</p>
+      </article>
+      <article class="tile t-e">
+        <h3><span data-px="gift" data-s="34"></span>Noel Pass</h3>
+        <p>Jeden Tag einloggen, Belohnung abholen. Sie wird mit jedem Tag besser, am Monatsende wartet ein Bonus.</p>
+      </article>
+      <article class="tile t-f">
+        <h3><span data-px="sword" data-s="38"></span>Arena & Kopfgeld</h3>
+        <p>In der Arena kämpfst du ohne Verlust, die Kills zählen nur als Arena-Stats. Auf dem Survival-Server setzt du Kopfgelder auf Spieler, und im Kampf schützt dich der Kampf-Timer vor Weglaufen per Teleport.</p>
+        <ul><li><span>/arena</span></li><li><span>/bounty</span></li><li><span>/arenastats</span></li></ul>
+      </article>
+      <article class="tile t-g">
+        <h3><span data-px="bolt" data-s="38"></span>Events mit Preisgeld</h3>
+        <p>Immer wieder starten Raids und Boss-Events direkt in der Arena. Die Top 5 mit den meisten Kills oder dem meisten Schaden bekommen Geld. Zu besonderen Anlässen kommen Quests dazu.</p>
+      </article>
+      <article class="tile t-h">
+        <h3><span data-px="crown" data-s="34"></span>Bestenlisten</h3>
+        <p>Tode, Kills, Spielzeit, Geld, Sterne und mehr in <b>/leaderboard</b>. Mit <b>/stats</b> schaust du bei dir oder anderen nach.</p>
+      </article>
+      <article class="tile t-i">
+        <h3><span data-px="chest" data-s="34"></span>Praktische Befehle</h3>
+        <p>Enderchest, Amboss, Webstuhl, Steinsäge und Mülleimer sind für alle jederzeit per Befehl da.</p>
+      </article>
+      <article class="tile t-j">
+        <h3><span data-px="map" data-s="34"></span>Mitspielen</h3>
+        <p>Ingame-Voice-Chat, ein Discord, der mit dem Minecraft-Chat verbunden ist, und auch Bedrock-Spieler sind willkommen.</p>
+      </article>
+    </div>
+  </div>
+</section>
 
+<section class="sec" id="meta">
+  <div class="wrap">
+    <h2>Meta</h2>
+    <p class="lead">Die aktuell besten Verkaufspreise für <b>/sell</b>. Bei jedem Update stehen hier die Items, bei denen sich der Preis verändert hat.</p>
+    <div class="panel meta-box"><div class="meta-head"><h3>Aktuell</h3><span class="live">gilt jetzt</span></div><ul class="meta-list"><li class="meta-row"><span data-px="pumpkin" data-s="46"></span><b>Kürbis</b><span class="from">5$</span><span class="arr" aria-hidden="true">&rarr;</span><span class="to">100$</span><span class="mult">&times;20</span></li><li class="meta-row"><span data-px="pumpkin" data-s="46"></span><b>Geschnitzter Kürbis</b><span class="from">2,5$</span><span class="arr" aria-hidden="true">&rarr;</span><span class="to">125$</span><span class="mult">&times;50</span></li><li class="meta-row"><span data-px="pumpkin" data-s="46"></span><b>Jack o&#x27;Lantern</b><span class="from">10$</span><span class="arr" aria-hidden="true">&rarr;</span><span class="to">150$</span><span class="mult">&times;15</span></li></ul></div>
+  </div>
+</section>
 
-    <section class="section">
+<section class="sec" id="news">
+  <div class="wrap">
+    <h2>Neuigkeiten</h2>
+    <p class="lead">Das ist zuletzt passiert. <a href="news/"><b>Alle News ansehen</b></a></p>
+    <div class="news-grid" id="homeNewsGrid"><div class="loading">Lade die neuesten News …</div></div>
+  </div>
+</section>
 
-        <h2>SOZIALE NETZWERKE</h2>
+<section class="sec" id="socials">
+  <div class="wrap">
+    <h2>Community</h2>
+    <p class="lead">Hier findest du DasNoooel und die Leute vom SMP.</p>
+    <div class="social">
+      <a class="panel soc" href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener"><span data-px="discord" data-s="42"></span><div><b>SMP-Discord</b><small>Für Spieler</small></div></a>
+      <a class="panel soc" href="https://www.twitch.tv/dasnoooel" target="_blank" rel="noopener"><span data-px="play" data-s="42"></span><div><b>Twitch</b><small>Live dabei sein</small></div></a>
+      <a class="panel soc" href="https://www.youtube.com/@DasNoooel" target="_blank" rel="noopener"><span data-px="play" data-s="42"></span><div><b>YouTube</b><small>Videos</small></div></a>
+      <a class="panel soc" href="https://www.instagram.com/dasnoooel/" target="_blank" rel="noopener"><span data-px="heart" data-s="42"></span><div><b>Instagram</b><small>Bilder und Stories</small></div></a>
+      <a class="panel soc" href="https://discord.gg/bMtxahTTHz" target="_blank" rel="noopener"><span data-px="chest" data-s="42"></span><div><b>Community-Discord</b><small>Zum Quatschen</small></div></a>
+    </div>
+  </div>
+</section>
+</main>
 
-        <p>
-            Hier kommt ihr zu den Social Media Accounts von DasNoooel
-        </p>
-
-        <div class="socials">
-
-            <a
-                href="https://www.twitch.tv/dasnoooel"
-                target="_blank"
-                rel="noopener"
-                class="social twitch"
-            >
-                TWITCH
-            </a>
-
-            <a
-                href="https://www.youtube.com/@DasNoooel"
-                target="_blank"
-                rel="noopener"
-                class="social youtube"
-            >
-                YOUTUBE
-            </a>
-
-            <a
-                href="https://www.instagram.com/dasnoooel/"
-                target="_blank"
-                rel="noopener"
-                class="social instagram"
-            >
-                INSTAGRAM
-            </a>
-
-            <a
-                href="https://discord.gg/QF6ErUhh6e"
-                target="_blank"
-                rel="noopener"
-                class="social discord"
-            >
-                SMP DISCORD
-            </a>
-
-            <a
-                href="https://discord.gg/bMtxahTTHz"
-                target="_blank"
-                rel="noopener"
-                class="social discord"
-            >
-                COMMUNITY DISCORD
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <section class="section news-section">
-
-        <div class="section-header">
-
-            <div>
-                <span class="section-label">NOELSMP</span>
-                <h2>NEWS</h2>
-            </div>
-
-            <a href="/news/" class="all-news-button">
-                ALLE NEWS →
-            </a>
-
-        </div>
-
-        <div class="news-grid" id="homeNewsGrid"></div>
-
-    </section>
-
-
-    <section class="section">
-
-        <h2>ÜBER UNS</h2>
-
-        <p class="about">
-
-            Wir haben viel zeit investiert um diesen Server so gut wie möglich zu gestalten,
-            <br>
-
-            wir sind so viele Betas durchgegangen. Damals als unser Server als Aternos-Server begann,
-            <br>
-
-            wussten wir dass es nur eine Frage der Zeit ist bis wir unseren richtigen Server kaufen...
-
-            <br><br>
-
-            Und hier sind wir, nach monatelangen Experimenten starten wir unseren brandeigenen SMP,
-            den SMP könnt ihr unter
-
-            <span class="server-ip">
-                NoelSMP.net
-            </span>
-
-            erreichen und wir sind stets glücklich und aufgeregt die ersten Spieler zu haben!
-
-            <br>
-
-            Also worauf wartet ihr, startet euer Abenteuer!
-
-        </p>
-
-    </section>
-
-
-    <section class="section">
-
-        <h2>QUICKSTART</h2>
-
-        <p>
-            Hier findet ihr nun eine Liste von Infos die euch einen guten Start auf dem SMP bieten:
-        </p>
-
-        <div class="quickstart">
-
-            <a href="/rules/" class="rules">
-                RULES
-            </a>
-
-            <a href="/commands/" class="commands">
-                COMMANDS
-            </a>
-
-            <a href="/ranks/" class="ranks">
-                RANKS
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <section class="section welcome">
-
-        Viel Spass auf dem SMP :)
-
-    </section>
-
-
-    <section class="section">
-
-        <div class="warning">
-
-            WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
-
-            <br>
-
-            bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
-
-        </div>
-
-    </section>
-
+  </div>
 </div>
-
-
-<footer>
-
-    developed by dasnoooel
-
-    <br>
-
-    © 2026 NoelSMP. All Rights Reserved.
-
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <h4>NoelSMP.net</h4>
+      <small>Ein Survival-Server von Freunden für Freunde. Server-IP: <b>noelsmp.net</b></small>
+    </div>
+    <div><h4>Seiten</h4><a href="./">Startseite</a><a href="news/">News</a><a href="commands/">Commands</a><a href="ranks/">Ränge</a><a href="rules/">Regeln</a></div>
+    <div><h4>Community</h4><a href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener">SMP-Discord</a><a href="https://www.twitch.tv/dasnoooel" target="_blank" rel="noopener">Twitch</a><a href="https://www.youtube.com/@DasNoooel" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/dasnoooel/" target="_blank" rel="noopener">Instagram</a></div>
+    <div style="flex-basis:100%"><small>Gebaut von dasnoooel. © 2026 NoelSMP. Alle Rechte vorbehalten. NoelSMP ist kein Mojang- oder Microsoft-Produkt.</small></div>
+  </div>
 </footer>
-
-
-<script>
-
-/* =========================================
-   DARK / LIGHT MODE
-========================================= */
-
-const themeToggle = document.getElementById("themeToggle");
-const themeIcon = document.getElementById("themeIcon");
-
-function updateThemeButton() {
-
-    const currentTheme =
-        document.documentElement.getAttribute("data-theme");
-
-    if (currentTheme === "dark") {
-
-        themeIcon.textContent = "☀️";
-
-        themeToggle.setAttribute(
-            "aria-label",
-            "Light Mode aktivieren"
-        );
-
-    } else {
-
-        themeIcon.textContent = "🌙";
-
-        themeToggle.setAttribute(
-            "aria-label",
-            "Dark Mode aktivieren"
-        );
-    }
-}
-
-themeToggle.addEventListener("click", function () {
-
-    const currentTheme =
-        document.documentElement.getAttribute("data-theme");
-
-    const newTheme =
-        currentTheme === "dark"
-            ? "light"
-            : "dark";
-
-    document.documentElement.setAttribute(
-        "data-theme",
-        newTheme
-    );
-
-    localStorage.setItem(
-        "noelsmp-theme",
-        newTheme
-    );
-
-    updateThemeButton();
-});
-
-updateThemeButton();
-
-
-/* =========================================
-   COPY SERVER IP
-========================================= */
-
-function copyServerIP() {
-
-    navigator.clipboard.writeText("noelsmp.net").then(() => {
-
-        const success =
-            document.getElementById("copySuccess");
-
-        success.classList.add("show");
-
-        setTimeout(() => {
-
-            success.classList.remove("show");
-
-        }, 2000);
-
-    });
-
-}
-
-</script>
-
-
+<div class="copied" id="toast" role="status" aria-live="polite"></div>
+<script src="site.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-
-const SUPABASE_URL =
-    "https://kinmvbfiyjpokerbbjjj.supabase.co";
-
-const SUPABASE_ANON_KEY =
-    "sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-
-
-async function loadHomeNews() {
-
-    const newsGrid =
-        document.getElementById("homeNewsGrid");
-
-    if (!newsGrid) return;
-
-    const { data, error } =
-        await supabaseClient
-            .from("news")
-            .select("*")
-            .order("date", { ascending: false })
-            .order("created_at", { ascending: false })
-            .limit(3);
-
-
-    if (error) {
-
-        console.error("News-Fehler:", error);
-
-        newsGrid.innerHTML = `
-            <article class="news-card">
-                <p>NEWS KONNTEN NICHT GELADEN WERDEN.</p>
-            </article>
-        `;
-
-        return;
-    }
-
-
-    newsGrid.innerHTML = "";
-
-
-    data.forEach(news => {
-
-        const article =
-            document.createElement("article");
-
-        article.className = "news-card";
-
-
-        const date =
-            new Date(news.date + "T00:00:00")
-                .toLocaleDateString("de-DE", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric"
-                });
-
-
-        article.innerHTML = `
-            <span class="news-date">
-                ${date}
-            </span>
-
-            <p>
-                ${escapeHtml(news.message)}
-            </p>
-        `;
-
-
-        newsGrid.appendChild(article);
-
+(function(){
+  var grid=document.getElementById("homeNewsGrid");
+  function msg(t){grid.innerHTML="";var d=document.createElement("div");d.className="loading";d.textContent=t;grid.appendChild(d)}
+  try{
+    var c=window.supabase.createClient("https://kinmvbfiyjpokerbbjjj.supabase.co","sb_publishable_iZuifiHDO5_4R-PTP4Cy2w_7Eox7giU");
+    c.from("news").select("*").order("date",{ascending:false}).order("created_at",{ascending:false}).limit(3).then(function(r){
+      if(r.error){msg("Die News konnten gerade nicht geladen werden.");return}
+      var data=r.data||[]; if(!data.length){msg("Gerade gibt es keine News.");return}
+      grid.innerHTML="";
+      data.forEach(function(n){
+        var a=document.createElement("article");a.className="news-card";
+        var s=document.createElement("span");s.className="news-date";
+        s.textContent=new Date(n.date+"T00:00:00").toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});
+        var p=document.createElement("p");p.textContent=n.message;
+        a.appendChild(s);a.appendChild(p);grid.appendChild(a);
+      });
     });
-
-}
-
-
-function escapeHtml(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
-}
-
-
-loadHomeNews();
-
+  }catch(e){msg("Die News konnten gerade nicht geladen werden.")}
+})();
 </script>
-
 </body>
 </html>

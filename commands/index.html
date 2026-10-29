@@ -1,550 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="de" data-theme="dark">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>NoelSMP ● Befehle</title>
-
-    <link rel="stylesheet" href="/commands_background.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="icon" type="image/png" href="/NoelSMPLM.png">
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            font-family: "Press Start 2P", monospace;
-        }
-
-        html,
-        body {
-            min-height: 100%;
-            margin: 0;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            color: #eeeeee;
-            font-size: 10px;
-            line-height: 1.8;
-            padding: 15px;
-        }
-
-        .page {
-            width: 100%;
-            max-width: 1150px;
-            margin: 0 auto;
-        }
-
-        .top-nav {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(25px, 6vw, 80px);
-            padding: 15px 10px;
-            margin-bottom: 25px;
-        }
-
-        .top-nav a {
-            text-decoration: none;
-            font-size: clamp(8px, 1.5vw, 15px);
-            white-space: nowrap;
-            transition: 0.2s ease;
-        }
-
-        .top-nav .rules-link {
-            color: #d69a6a;
-        }
-
-        .top-nav .ranks-link {
-            color: #58d0c5;
-        }
-
-        .top-nav a:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.3);
-        }
-
-        .logo-link {
-            display: block;
-        }
-
-        .logo {
-            display: block;
-            width: clamp(65px, 8vw, 100px);
-            height: auto;
-            transition: 0.2s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .header {
-            text-align: center;
-            padding: 30px;
-            margin-bottom: 25px;
-            border-radius: 20px;
-            background: rgba(10, 20, 40, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-        }
-
-        .header h1 {
-            margin: 0 0 15px;
-            color: #63b5ff;
-            font-size: clamp(17px, 3vw, 26px);
-        }
-
-        .header p {
-            margin: 10px 0;
-            opacity: 0.75;
-        }
-
-        .permission-info {
-            color: #ff4fd8;
-            font-weight: bold;
-        }
-
-        .categories {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        details {
-            border-radius: 16px;
-            background: rgba(10, 20, 40, 0.48);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-            transition: 0.2s ease;
-        }
-
-        details:hover {
-            background: rgba(10, 20, 40, 0.58);
-            border-color: rgba(255, 255, 255, 0.14);
-        }
-
-        summary {
-            cursor: pointer;
-            padding: 20px 22px;
-            font-weight: bold;
-            font-size: 12px;
-            list-style-position: inside;
-            transition: 0.2s ease;
-        }
-
-        summary:hover {
-            filter: brightness(1.3);
-        }
-
-        details > p {
-            margin: 0;
-            padding: 7px 25px;
-            font-size: 9px;
-        }
-
-        details > p:first-of-type {
-            padding-top: 18px;
-        }
-
-        details > p:last-child {
-            padding-bottom: 20px;
-        }
-
-        details details {
-            margin: 10px 20px;
-            background: rgba(255, 255, 255, 0.035);
-            border-color: rgba(255, 255, 255, 0.06);
-        }
-
-        details details summary {
-            padding: 15px 18px;
-            font-size: 9px;
-            color: #8dbfff;
-        }
-
-        details details p {
-            padding: 5px 18px;
-            font-size: 8px;
-        }
-
-        code {
-            color: #63c5ff;
-            font-family: "Press Start 2P", monospace;
-        }
-
-        .server summary {
-            color: #63b5ff;
-        }
-
-        .economy summary {
-            color: #e0b44c;
-        }
-
-        .social summary {
-            color: #55c76a;
-        }
-
-        .friend summary {
-            color: #8dbfff;
-        }
-
-        .clan summary {
-            color: #8dbfff;
-        }
-
-        .premium {
-            color: #ff4fd8 !important;
-        }
-
-        .warning {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 16px;
-            background: rgba(10, 20, 40, 0.48);
-            border: 1px solid rgba(255, 100, 100, 0.15);
-            text-align: center;
-            color: #ff6d6d;
-            font-size: 8px;
-            line-height: 2;
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 35px 10px 20px;
-            text-align: center;
-            font-size: 7px;
-            line-height: 2;
-            opacity: 0.45;
-        }
-
-        @media (max-width: 600px) {
-
-            body {
-                padding: 10px;
-            }
-
-            .top-nav {
-                gap: 18px;
-            }
-
-            .top-nav a {
-                font-size: 7px;
-            }
-
-            .logo {
-                width: 65px;
-            }
-
-            .header {
-                padding: 22px 15px;
-            }
-
-            .header h1 {
-                font-size: 15px;
-            }
-
-            .header p {
-                font-size: 7px;
-            }
-
-            summary {
-                padding: 16px;
-                font-size: 9px;
-            }
-
-            details > p {
-                padding-left: 17px;
-                padding-right: 17px;
-                font-size: 7px;
-            }
-
-            details details {
-                margin: 8px 10px;
-            }
-
-            details details summary {
-                font-size: 7px;
-            }
-
-            details details p {
-                font-size: 6px;
-            }
-
-            .warning {
-                font-size: 6px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commands | NoelSMP</title>
+<meta name="description" content="Alle Spieler-Befehle des NoelSMP: Teleport, Homes, Geld, Clans, Arena, Pass und mehr.">
+<meta name="theme-color" content="#0b2159">
+<meta property="og:title" content="Commands | NoelSMP">
+<meta property="og:description" content="Alle Spieler-Befehle des NoelSMP: Teleport, Homes, Geld, Clans, Arena, Pass und mehr.">
+<meta property="og:image" content="/NoelSMPL.png">
+<link rel="icon" type="image/png" href="../NoelSMPLM.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:ital,wght@0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site.css">
 
 </head>
-
 <body>
-
-<div class="page">
-
-    <nav class="top-nav">
-
-        <a href="/rules/" class="rules-link">
-            RULES
-        </a>
-
-        <a href="/index.html"></a"class="logo-link">
-            <img src="/NoelSMPL.png" class="logo" alt="NoelSMP">
-        </a>
-
-        <a href="/ranks/" class="ranks-link">
-            RANKS
-        </a>
-
-    </nav>
-
-    <section class="header">
-
-        <h1>LISTE ALLER COMMANDS</h1>
-
-        <p>
-            Hier ist eine Liste von allen Commands die man als Spieler benutzt kann:
-        </p>
-
-        <p class="permission-info">
-            *Commands die PINK sind, können nur von BOOSTER, MEDIAS, VIPS und Team Rängen benutzt werden!
-        </p>
-
-    </section>
-
-    <main class="categories">
-
-        <details class="server">
-
-            <summary>SERVER</summary>
-
-            <p>Dies sind alle allgemeinen Servercommands:</p>
-
-            <p>/spawn | Teleportiert dich an den Spawn</p>
-
-            <p>/rtp | Teleportiert dich zu einer zufälligen Koordinate in einer auserwählten Dimension</p>
-
-            <p>/tpa | Schickt eine Teleportationsanfrage an einen Spieler</p>
-
-            <p>/tpahere | Schickt eine Teleportationsanfrage zu einem Spieler, ob er sich zu dich teleportieren will</p>
-
-            <p class="premium">/tpauto | Teleportiert automatisch jeden Spieler zu dir, der dir eine TPA sendet</p>
-
-            <p>/settings | Öffnet deine Einstellungen</p>
-
-            <p class="premium">/craft | Öffnet ein mobiles Craftingtable Menü</p>
-
-            <p class="premium">/enderchest | Öffnet deine mobile Enderchest</p>
-
-            <p class="premium">/trash | Öffnet ein Mülleimer-Menü, wo du Sachen reinpacken kannst die du nicht brauchst (! Weggeworfene Items können nicht wieder hergestellt werden)</p>
-
-            <p class="premium">/anvil | Öffnet ein mobiles Anvil-Menü</p>
-
-            <p class="premium">/loom | Öffnet ein mobiles Loom-Menü</p>
-
-            <p class="premium">/stonecutter | Öffnet ein mobiles Stonecutter-Menü</p>
-
-            <p>/homes | Öffnet ein Home-Menü, wo du alle deine Homes siehst</p>
-
-            <p>/sethome | Setzte ein Home auf der Koordinate auf der du gerade stehst</p>
-
-            <p>/delhome | Löscht ein auserwähltes Home</p>
-
-        </details>
-
-        <details class="economy">
-
-            <summary>ECONOMY</summary>
-
-            <p>Dies sind alle Commands die etwas mit dem Geldsystem zu tun haben:</p>
-
-            <p>/pay | Bezahle eine benutzerdefinierte Summe an Geld an einen auserwählten Spieler</p>
-
-            <p>/shop | Öffnet den Item-Shop, wo man unter anderem Essen, Ressourcen und PVP-Items kaufen kann</p>
-
-            <p>/sell | Öffnet ein Menü, wo du Blöcke und Items verkaufen kannst</p>
-
-            <p>/ah | Öffnet das Auktionshaus, wo du Sachen von anderen kaufen oder du deine eigenen Sachen zum benutzerdefinierten Preis verkaufen kannst</p>
-
-        </details>
-
-        <details class="social">
-
-            <summary>SOZIAL</summary>
-
-            <p>Dies sind alle Commands die etwas mit dem sozialen Netzwerk zu tun haben:</p>
-
-            <details class="friend">
-
-                <summary>FREUNDE</summary>
-
-                <p>/friend add | Sendet eine Freundschaftsanfrage an eine auserwählte Person</p>
-
-                <p>/friend remove | Entfernt einen Freund aus der Freundesliste</p>
-
-                <p>/friend list | Zeigt dir deine Freundesliste</p>
-
-                <p>/friend mute | Schaltet die Textnachrichten eines Freundes stumm</p>
-
-            </details>
-
-            <details class="clan">
-
-                <summary>CLAN</summary>
-
-                <details>
-
-                    <summary>Clan-Verwaltung</summary>
-
-                    <p><code>/clan</code> | Öffnet das Haupt-Clan-Menü</p>
-
-                    <p><code>/clan create &lt;Name&gt;</code> | Erstellt einen Clan</p>
-
-                    <p><code>/clan invite &lt;Spieler&gt;</code> | Lädt einen Spieler in den Clan ein</p>
-
-                    <p><code>/clan join</code> | Nimmt eine Clan-Einladung an</p>
-
-                    <p><code>/clan deny</code> | Lehnt eine Clan-Einladung ab</p>
-
-                    <p><code>/clan kick &lt;Spieler&gt;</code> | Entfernt einen Spieler aus dem Clan</p>
-
-                    <p><code>/clan promote &lt;Spieler&gt;</code> | Befördert ein Clan-Mitglied</p>
-
-                    <p><code>/clan demote &lt;Spieler&gt;</code> | Stuft ein Clan-Mitglied herab</p>
-
-                    <p><code>/clan transfer &lt;Spieler&gt;</code> | Überträgt die Clan-Leitung</p>
-
-                    <p><code>/clan leave</code> | Verlässt den Clan</p>
-
-                    <p><code>/clan disband</code> | Löst den Clan auf</p>
-
-                </details>
-
-                <details>
-
-                    <summary>Clan-Informationen &amp; Statistiken</summary>
-
-                    <p><code>/clan info [Clan]</code> | Zeigt Informationen über einen Clan</p>
-
-                    <p><code>/clan stats</code> | Zeigt detaillierte Clan-Statistiken</p>
-
-                    <p><code>/clan top</code> | Zeigt die Clan-Rangliste</p>
-
-                    <p><code>/clan wartop</code> | Zeigt die Kriegs-Rangliste</p>
-
-                    <p><code>/clan list</code> | Zeigt alle Clans</p>
-
-                </details>
-
-                <details>
-
-                    <summary>Clan-Kriege &amp; Diplomatie</summary>
-
-                    <p><code>/clan war &lt;Clan&gt;</code> | Erklärt einem Clan den Krieg</p>
-
-                    <p><code>/clan peace &lt;Clan&gt;</code> | Beendet einen Krieg</p>
-
-                    <p><code>/clan ally &lt;...&gt; &lt;Clan&gt;</code> | Verwaltet Bündnisse mit anderen Clans</p>
-
-                    <p><code>/clan enemy &lt;...&gt;</code> | Verwaltet feindliche Clans</p>
-
-                </details>
-
-                <details>
-
-                    <summary>Clan-Anpassungen</summary>
-
-                    <p><code>/clan prefix &lt;Text&gt;</code> | Setzt einen farbigen Clan-Präfix</p>
-
-                    <p><code>/clan emoji [gui]</code> | Öffnet das Emoji-Menü bzw. legt ein Clan-Emoji fest</p>
-
-                    <p><code>/clan motd &lt;Text&gt;</code> | Legt die Clan-Nachricht des Tages fest</p>
-
-                </details>
-
-                <details>
-
-                    <summary>Clan-Heimat</summary>
-
-                    <p><code>/clan sethome</code> | Setzt den Clan-Homepunkt</p>
-
-                    <p><code>/clan home</code> | Teleportiert zum Clan-Home</p>
-
-                </details>
-
-                <details>
-
-                    <summary>Clan-Bank &amp; Punkte</summary>
-
-                    <p><code>/clan bank</code> | Öffnet die Clan-Bank</p>
-
-                    <p><code>/clan deposit</code> | Zahlt Geld in die Clan-Bank ein</p>
-
-                    <p><code>/clan withdraw</code> | Hebt Geld aus der Clan-Bank ab</p>
-
-                </details>
-
-                <details>
-
-                    <summary>Clan-Kommunikation</summary>
-
-                    <p><code>/clanchat</code> | Schreibt im Clan-Chat</p>
-
-                    <p><code>/allychat</code> | Schreibt im Bündnis-Chat</p>
-
-                    <p><code>/clanchatspy</code> | Ermöglicht das Mitlesen des Clan-Chats</p>
-
-                    <p><code>/clanchest</code> | Öffnet die Clan-Truhe</p>
-
-                </details>
-
-            </details>
-
-        </details>
-
-    </main>
-
-    <section class="warning">
-
-        WICHTIGER HINWEIS: Diese Website steht zurzeit immernoch in der BETA,
-
-        <br>
-
-        bei einem Bug oder einer Fehlanzeige bitte kontaktiert @dasnoooel auf Discord!
-
-    </section>
-
+<div class="scene" id="scene" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+<a class="toplink" href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener"><span data-px="discord" data-s="18"></span>Support</a>
+<header class="top wrap">
+  <button class="side play" type="button" data-copy-ip aria-label="Server-IP kopieren">
+    <span class="side-txt"><b>Jetzt spielen</b><small>noelsmp.net</small></span>
+    <span class="orb"><span data-px="play" data-s="26"></span><i class="badge" id="pCount">–</i></span>
+  </button>
+  <a class="logo-link" href="../" aria-label="NoelSMP Startseite"><img class="hero-logo" id="logo" src="../NoelSMPL.png" alt="NoelSMP" width="560"></a>
+  <a class="side dc" href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener" aria-label="Discord beitreten">
+    <span class="orb"><span data-px="discord" data-s="26"></span></span>
+    <span class="side-txt"><b>Discord</b><small><span id="dCount">–</span> online</small></span>
+  </a>
+</header>
+<div class="layout wrap">
+  <aside class="rail">
+    <p class="rail-label">Willkommen auf NoelSMP</p>
+    <button class="joincard" type="button" data-copy-ip aria-label="Server-IP kopieren">
+      <img class="join-head" src="../NoelSMPK.png" alt="">
+      <span class="join-txt"><b>Server-IP kopieren</b><small id="pSub">noelsmp.net</small></span>
+      <span class="join-arrow" aria-hidden="true">&rarr;</span>
+    </button>
+    <nav class="railnav panel" aria-label="Hauptmenü"><a class="navrow" href="../"><span data-px="house" data-s="46"></span><b>Start</b></a><a class="navrow" href="../news/"><span data-px="bolt" data-s="46"></span><b>News</b></a><a class="navrow" href="../commands/" aria-current="page"><span data-px="book" data-s="46"></span><b>Commands</b></a><a class="navrow" href="../ranks/"><span data-px="crown" data-s="46"></span><b>Ränge</b></a><a class="navrow" href="../rules/"><span data-px="shield" data-s="46"></span><b>Regeln</b></a></nav>
+    <a class="banner" href="../#event"><span data-px="megaphone" data-s="30"></span><b>Halloween-Event 2026, jetzt ansehen!</b></a>
+  </aside>
+  <div class="content">
+
+<main class="wrap">
+  <div class="page-head">
+    <h1>Commands</h1>
+    <p>Alle Befehle, die du als Spieler nutzen kannst. Klick auf einen Befehl, um ihn zu kopieren. Farbige Markierungen zeigen, ab welchem Rang ein Befehl geht.</p>
+    <span class="updated">Stand: 28.10.2026</span>
+  </div>
+  <div class="tools">
+    <label class="search"><span class="sr">Befehle durchsuchen</span><span data-px="book" data-s="22"></span><input id="q" type="search" placeholder="Befehl oder Stichwort suchen" autocomplete="off"></label>
+    <div class="chips" id="chips" role="group" aria-label="Kategorie"></div>
+  </div>
+  <div id="list"></div>
+  <p class="muted" style="margin-top:10px">Team-Befehle (Verwaltung, Events, Admin-Menüs) stehen hier nicht. Bei Fragen hilft das Team im Discord.</p>
+</main>
+  </div>
 </div>
-
-<footer>
-
-    developed by dasnoooel
-
-    <br>
-
-    © 2026 NoelSMP. All Rights Reserved.
-
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <h4>NoelSMP.net</h4>
+      <small>Ein Survival-Server von Freunden für Freunde. Server-IP: <b>noelsmp.net</b></small>
+    </div>
+    <div><h4>Seiten</h4><a href="../">Startseite</a><a href="../news/">News</a><a href="../commands/">Commands</a><a href="../ranks/">Ränge</a><a href="../rules/">Regeln</a></div>
+    <div><h4>Community</h4><a href="https://discord.gg/QF6ErUhh6e" target="_blank" rel="noopener">SMP-Discord</a><a href="https://www.twitch.tv/dasnoooel" target="_blank" rel="noopener">Twitch</a><a href="https://www.youtube.com/@DasNoooel" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/dasnoooel/" target="_blank" rel="noopener">Instagram</a></div>
+    <div style="flex-basis:100%"><small>Gebaut von dasnoooel. © 2026 NoelSMP. Alle Rechte vorbehalten. NoelSMP ist kein Mojang- oder Microsoft-Produkt.</small></div>
+  </div>
 </footer>
-
+<div class="copied" id="toast" role="status" aria-live="polite"></div>
+<script src="../site.js"></script>
+<script>
+(function(){
+  var DATA=[["Teleport & Welt", "tp", "Wie du dich schnell und sicher bewegst.", [["/spawn", "Teleportiert dich zum Spawn.", ""], ["/rtp", "Öffnet das RTP-Menü. Dort wählst du Overworld, Nether oder End.", ""], ["/tpa <Spieler>", "Schickt einem Spieler eine Teleport-Anfrage.", ""], ["/tpahere <Spieler>", "Bittet einen Spieler, sich zu dir zu teleportieren.", ""], ["/tpaccept", "Nimmt eine Anfrage an (oder klick den Knopf im Chat).", ""], ["/tpdeny", "Lehnt eine Anfrage ab.", ""], ["/tpacancel", "Zieht eine Anfrage zurück, die du gesendet hast.", ""], ["/tpauto", "Nimmt Teleport-Anfragen automatisch an.", "media"], ["/tpsettings", "Stellt ein, von wem du Anfragen bekommst: alle, nur Freunde oder niemand.", ""]]], ["Homes", "home", "Setze Punkte, zu denen du jederzeit zurückkommst. Wie viele, hängt von deinem Rang ab.", [["/homes", "Öffnet das Home-Menü mit allen deinen Homes.", ""], ["/home <Name>", "Teleportiert dich zu einem Home.", ""], ["/sethome <Name>", "Setzt ein Home an deiner Position.", ""], ["/delhome <Name>", "Löscht ein Home.", ""], ["/renamehome <Alt> <Neu>", "Benennt ein Home um.", ""], ["/movehome <Name>", "Verschiebt ein Home an deine Position.", ""]]], ["Geld & Handel", "eco", "Verdienen, ausgeben, handeln.", [["/balance [Spieler]", "Zeigt dein Guthaben oder das eines anderen Spielers. Auch /bal.", ""], ["/pay <Spieler> <Betrag>", "Überweist einem Spieler Geld.", ""], ["/baltop", "Die reichsten Spieler des Servers.", ""], ["/shop", "Öffnet den Shop mit Nether-, Ausrüstungs-, Essens- und Verzauberungs-Kategorie.", ""], ["/sell", "Öffnet das Verkaufsfenster. Items hineinlegen, schließen, fertig.", ""], ["/price <Item>", "Zeigt, was ein Item beim Verkaufen bringt.", ""], ["/ah", "Öffnet das Auktionshaus.", ""], ["/ah sell <Preis>", "Stellt das Item in deiner Hand zum Preis ein.", ""], ["/ah abholen", "Holt abgelaufene oder zurückgegebene Items ab.", ""], ["/ah meine", "Zeigt deine eigenen Angebote.", ""], ["/orders", "Öffnet die Aufträge. Dort bestellst du Items oder lieferst für andere.", ""]]], ["Sterne & God-Tools", "stars", "Sterne bekommst du für Spielzeit, Kills und Verkäufe.", [["/starshop", "Öffnet den Starshop mit God-Tools, Spawnern und Effekten.", ""], ["/effektshop", "Öffnet direkt den Effektshop.", ""], ["/starbalance [Spieler]", "Zeigt dein Sterne-Guthaben oder das eines anderen Spielers.", ""]]], ["Freunde & Clans", "social", "Gemeinsam spielt es sich besser.", [["/friend", "Öffnet das Freunde-Menü.", ""], ["/friend add <Spieler>", "Schickt eine Freundschaftsanfrage.", ""], ["/friend accept | deny", "Nimmt eine Anfrage an oder lehnt sie ab.", ""], ["/friend remove <Spieler>", "Entfernt einen Freund.", ""], ["/friend list | requests", "Zeigt deine Freunde oder offene Anfragen.", ""], ["/friend mute | unmute <Spieler>", "Schaltet einen Freund stumm oder wieder laut.", ""], ["/fmsg <Freund> <Nachricht>", "Private Nachricht an einen Freund.", ""], ["/friend group", "Erstellt und verwaltet Freundesgruppen.", ""], ["/gc [Gruppe] <Nachricht>", "Schreibt in eine Freundesgruppe.", ""], ["/clan", "Öffnet das Clan-Menü.", ""], ["/clan create <Name>", "Gründet einen Clan.", ""], ["/clan invite <Spieler>", "Lädt einen Spieler in deinen Clan ein.", ""], ["/clan accept | deny", "Nimmt eine Clan-Einladung an oder lehnt sie ab.", ""], ["/clan leave", "Verlässt deinen Clan.", ""], ["/clan kick <Spieler>", "Wirft ein Mitglied aus dem Clan.", ""], ["/clan info [Clan]", "Infos zu einem Clan.", ""], ["/clan list", "Alle Clans im Überblick.", ""], ["/clan top", "Die Clan-Rangliste.", ""], ["/clan sethome", "Setzt das Clan-Home.", ""], ["/clan home", "Teleportiert dich zum Clan-Home.", ""], ["/cc [Nachricht]", "Clan-Chat. Ohne Text schaltest du den Clan-Chat-Modus an oder aus.", ""]]], ["Kampf, Arena & Stats", "pvp", "Kämpfen, Kopfgelder und Bestenlisten.", [["/arena", "Teleportiert dich in die Arena.", ""], ["/arenastats [Spieler]", "Arena-Kills und Arena-Tode. Auch /astats.", ""], ["/bounty", "Öffnet das Kopfgeld-Menü: Kopfgeld setzen, ansehen und die Top-Liste.", ""], ["/combat", "Zeigt deinen Kampf-Timer.", ""], ["/stats [Spieler]", "Deine Statistiken oder die eines anderen Spielers.", ""], ["/leaderboard", "Öffnet die Bestenlisten. Auch /lb und /top.", ""]]], ["Pass & Events", "event", "Tägliche Belohnungen und besondere Aktionen.", [["/pass", "Öffnet den Noel Pass mit deinen Tagesbelohnungen.", ""], ["/pass claim", "Holt die heutige Belohnung direkt ab.", ""], ["/quests", "Zeigt die Halloween-Quests und deinen Fortschritt. Nur sichtbar, solange sie laufen.", "event"]]], ["Nützliches", "util", "Kleine Helfer für jeden Tag.", [["/enderchest", "Öffnet deine Enderchest. Auch /ec. Ab Media als Doppel-Enderchest.", "booster"], ["/anvil", "Öffnet einen Amboss.", "booster"], ["/craft", "Öffnet eine Werkbank.", "booster"], ["/loom", "Öffnet einen Webstuhl.", "media"], ["/stonecutter", "Öffnet eine Steinsäge. Auch /sc.", "media"], ["/smithingtable", "Öffnet einen Schmiedetisch.", "media"], ["/trash", "Öffnet einen Mülleimer. Was drin liegt, ist beim Schließen weg.", "booster"], ["/sign [Nachricht]", "Unterschreibt das Item in deiner Hand. /sign remove entfernt es wieder.", ""], ["/settings", "Deine persönlichen Einstellungen: Anfragen, Benachrichtigungen, Kontostand-Anzeige und mehr.", ""], ["/msg <Spieler> <Text>", "Private Nachricht. Mit /r antwortest du.", ""], ["/list", "Wer ist gerade online?", ""]]]];
+  var TAGS={media:"ab Media",booster:"ab Booster",vip:"ab VIP",event:"nur zum Event"};
+  var list=document.getElementById("list"),chips=document.getElementById("chips"),q=document.getElementById("q"),cat="all";
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+  function chip(label,key){var b=el("button","chip",label);b.type="button";b.setAttribute("aria-pressed",key===cat);b.onclick=function(){cat=key;render()};return b}
+  function render(){
+    chips.innerHTML="";chips.appendChild(chip("Alle","all"));DATA.forEach(function(g){chips.appendChild(chip(g[0],g[1]))});
+    var term=q.value.trim().toLowerCase();list.innerHTML="";var shown=0;
+    DATA.forEach(function(g){
+      if(cat!=="all"&&g[1]!==cat)return;
+      var items=g[3].filter(function(c){return !term||(c[0]+" "+c[1]).toLowerCase().indexOf(term)>-1});
+      if(!items.length)return;shown+=items.length;
+      var sec=el("section","cmd-group");var h=el("h2");h.appendChild(document.createTextNode(g[0]));sec.appendChild(h);sec.appendChild(el("p","sub",g[2]));
+      var grid=el("div","cmds");
+      items.forEach(function(c){
+        var b=el("button","cmd");b.type="button";b.title="Klicken zum Kopieren";
+        var code=el("code",null,c[0]);if(c[2]){var t=el("span","tag "+c[2],TAGS[c[2]]);code.appendChild(t)}
+        b.appendChild(code);b.appendChild(el("span",null,c[1]));
+        b.onclick=function(){window.NoelCopy(c[0].replace(/ [<\[|].*$/,""))};
+        grid.appendChild(b);
+      });
+      sec.appendChild(grid);list.appendChild(sec);
+    });
+    if(!shown)list.appendChild(el("div","empty","Nichts gefunden. Probier einen anderen Suchbegriff oder wähle \"Alle\"."));
+  }
+  q.addEventListener("input",render);render();
+})();
+</script>
 </body>
-
 </html>
