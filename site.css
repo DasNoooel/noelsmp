@@ -540,3 +540,10 @@ html[data-theme="dark"] body{background:#050b1d}
   .badge{right:-8px}
   .side.play{padding-left:8px}.side.dc{padding-right:8px}
 }
+
+/* NoelNite-Link ganz oben */
+.toplink.nn{left:22px;right:auto;color:#fff;background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 8px 22px rgba(79,70,229,.45),inset 0 0 0 1px rgba(255,255,255,.18);padding:10px 16px;font-weight:700}
+.toplink.nn:hover{color:#fff;background:linear-gradient(135deg,#8b5cf6,#3b82f6);transform:translateY(-2px) scale(1.04);box-shadow:0 12px 28px rgba(79,70,229,.6)}
+.toplink.nn .new{font:800 10px/1 var(--head);font-style:normal;background:#facc15;color:#1e1b4b;border-radius:999px;padding:3px 7px;margin-left:2px;letter-spacing:.04em}
+.navrow.nnrow b{background:linear-gradient(90deg,#c4b5fd,#93c5fd);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:700px){.toplink.nn{display:flex;position:relative;left:auto;top:auto;width:max-content;margin:12px auto 0}}
